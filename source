@@ -1,0 +1,1270 @@
+//Minh hoa viec dung con tro giua cac bien
+
+#include <stdio.h>
+#include <conio.h>
+#include <iostream>
+
+using namespace std;
+
+int main(void){
+	int x = 12, *px, *py;
+	cout << "x = " << x << endl;
+	px = &x; 	// Con tro px tro toi dia chi cua x => px = 12
+	cout << "px = &x, *px = " << *px << endl;
+	*px = *px + 20; // px = 12 + 20 = 32 và x = 32
+	cout << "*px = *px+20, x = " << x << endl;
+	py = px; // Cho py tro toi cho mà px tro (dia chi cua x) py = 32
+	*py += 15; // py = 32 + 15 = 47 => x = 47 
+	cout << "py = px, *py +=15, x = " << x << endl;
+}
+
+
+//Minh hoa dùng mang dông 2 chiêu tinh tong 2 ma tran
+
+#include<stdio.h>
+#include<conio.h>
+#include<iostream>
+
+using namespace std;
+
+/* Khai báo nguyên mâu hàm */
+int** InitArray(int row, int colum);
+void AddArray(int **A, int **B, int row, int colum);
+void DisplayArray(int **A, int row, int colum);
+void DeleteArray(int **A, int row);
+
+int** InitArray(int row, int colum){
+	int **A = new int*[row];
+	for(int i=0; i<row; i++){
+		A[i] = new int[colum];
+		for(int j=0; j<colum; j++){
+			cout << "Phan tu [" << i << "," << j << "] = ";
+			cin >> A[i][j];
+		}
+	}
+	return A;
+}
+void AddArray(int **A, int **B, int row, int colum){
+	for(int i=0; i<row; i++)
+		for(int j=0; j<colum; j++)
+			A[i][j]+=B[i][j];
+	return;
+}
+void DisplayArray(int **A, int row, int colum){
+	for(int i=0; i<row; i++){
+		for(int j=0; j<colum; j++)
+			cout << A[i][j] << " ";
+		cout << endl; // Xuông dòng
+	}
+return;
+}
+void DeleteArray(int **A, int row){
+	for(int i=0; i<row; i++)
+		delete [] A[i];
+	delete [] A;
+	return;
+}
+
+int main(){
+	//clrscr();
+	int **A =NULL, **B=NULL, row, colum;
+	cout << "So dong: ";
+	cin >> row;
+	cout << "So cot: ";
+	cin >> colum;
+/* Khoi tao các ma trân */
+	cout << "Khoi tao ma tran A:" << endl;
+	A = InitArray(row, colum);
+	cout << "Khoi tao ma tran B:" << endl;
+	B = InitArray(row, colum);
+// hien thi ma tran A, B
+	cout << "Ma tran A:" << endl;
+	DisplayArray(A, row, colum);
+	cout << "Ma tran B:" << endl;
+	DisplayArray(B, row, colum);
+// Cong 2 ma trân
+	AddArray(A, B, row, colum);
+// hiên thi ma tran kq
+	cout << "A + B = " << endl;
+	DisplayArray(A, row, colum);
+// Giai phong bo nho
+	DeleteArray(A, row);
+	DeleteArray(B, row);
+	return 0;
+}
+
+
+//Minh hoa su dung cau truc don, ko dung tu khoa typedef
+
+#include<stdio.h>
+#include<conio.h>
+#include<string.h>
+#include<iostream>
+
+using namespace std;
+
+struct Employee{
+	char name[20]; // Tên nhân viên
+	int age; // Tuoi nhân viên
+	char role[20]; // Chuc vu nhân viên
+	float salary; // Luong nhân viên
+};
+
+/* Khai báo khuôn mau hàm */
+void Display(struct Employee myEmployee);
+
+void Display(struct Employee myEmployee){
+	cout << "Name: " << myEmployee.name << endl;
+	cout << "Age: " << myEmployee.age << endl;
+	cout << "Role: " << myEmployee.role << endl;
+	cout << "Salary: " << myEmployee.salary << endl;
+return;
+}
+
+int main(){
+// Hien thi gia tri mac dinh
+	struct Employee myEmployee = {"Nguyen Van A", 27, "Nhan vien", 300};
+	cout << "Thong tin mac dinh:" << endl;
+	Display(myEmployee);
+//Thay doi gia tri cho cac thuoc tinh
+	cout << "Name: ";
+	cin >> myEmployee.name;
+	cout << "Age: ";
+	cin >> myEmployee.age;
+	cout << "Role: ";
+	cin >> myEmployee.role;
+	cout << "Salary: ";
+	cin >> myEmployee.salary;
+	cout << "Thong tin sau khi thay doi:" << endl;
+	Display(myEmployee);
+	return 0;
+}
+
+
+
+//Minh hoa viec khoi tao va hien thi noi dung con tro cau truc
+
+#include<stdio.h>
+#include<conio.h>
+#include<string.h>
+#include<iostream>
+
+using namespace std;
+
+typedef struct {
+	int day;
+	int month;
+	int year;
+} Date;
+
+typedef struct {
+	char name[20]; // Tên nhân viên
+	Date birthDay; // Ngày sinh nhân viên
+	char role[20]; // Chuc vu nhân viên
+	float salary; // Luong nhân viên
+} Employee;
+
+/* Khai báo khuôn mau hàm */
+void InitStruct(Employee *&myEmployee);
+void Display(Employee *myEmployee);
+
+void InitStruct(Employee *&myEmployee){
+	myEmployee = new Employee;
+	cout << "Name: ";
+	cin >> myEmployee->name;
+	cout << "Day of birth: ";
+	cin >> myEmployee->birthDay.day;
+	cout << "Month of birth: ";
+	cin >> myEmployee->birthDay.month;
+	cout << "Year of birth: ";
+	cin >> myEmployee->birthDay.year;
+	cout << "Role: ";
+	cin >> myEmployee->role;
+	cout << "Salary: ";
+	cin >> myEmployee->salary;
+}
+
+void Display(Employee *myEmployee){
+	cout << "Name: " << myEmployee->name << endl;
+	cout << "Birth day: " << myEmployee->birthDay.day << "/"
+			<< myEmployee->birthDay.month << "/"
+			<< myEmployee->birthDay.year << endl;
+	cout << "Role: " << myEmployee->role << endl;
+	cout << "Salary: " << myEmployee->salary << endl;
+	return;
+}
+
+int main(){
+	Employee *myEmployee;
+	InitStruct(myEmployee);
+	Display(myEmployee);
+	return 0;
+}
+
+
+
+//Minh hoa mang cau truc NV
+//Tim NV co min, max luong
+
+#include<stdio.h>
+#include<conio.h>
+#include<string.h>
+#include<iostream>
+
+using namespace std;
+
+typedef struct {
+	int day;
+	int month;
+	int year;
+} Date;
+
+typedef struct {
+	char name[20]; // Tên nhân viên
+	Date birthDay; // Ngày sinh nhân viên
+	char role[20]; // Chuc vu nhân viên
+	float salary; // Luong nhân viên
+} Employee;
+
+/* Khai báo khuôn mau hàm */
+void InitArray(Employee *&myEmployee, int length);
+Employee searchSalaryMax(Employee *myEmployee, int length); 
+Employee searchSalaryMin(Employee *myEmployee, int length); 
+void Display(Employee myEmployee);
+
+void InitArray(Employee *&myEmployee, int length){
+	myEmployee = new Employee[length];
+	for(int i=0; i<length; i++){
+		cout << "Nhan vien thu " << i << endl;
+		cout << "Name: ";
+		cin >> myEmployee[i].name;
+		cout << "Day of birth: ";
+		cin >> myEmployee[i].birthDay.day;
+		cout << "Month of birth: ";
+		cin >> myEmployee[i].birthDay.month;
+		cout << "Year of birth: ";
+		cin >> myEmployee[i].birthDay.year;
+		cout << "Role: ";
+		cin >> myEmployee[i].role;
+		cout << "Salary: ";
+		cin >> myEmployee[i].salary;
+	}
+	return;
+}
+
+Employee searchSalaryMax(Employee *myEmployee, int length){ 
+	int index = 0;
+	int maxSalary = myEmployee[0].salary;
+	for(int i=1; i<length; i++)
+		if(myEmployee[i].salary > maxSalary){
+			maxSalary = myEmployee[i].salary;
+			index = i;
+		}
+	return myEmployee[index];
+}
+
+Employee searchSalaryMin(Employee *myEmployee, int length){ 
+	int index = 0;
+	int minSalary = myEmployee[0].salary;
+	for(int i=1; i<length; i++)
+		if(myEmployee[i].salary < minSalary){
+			minSalary = myEmployee[i].salary;
+			index = i;
+		}
+	return myEmployee[index];
+}
+
+void Display(Employee myEmployee){
+	cout << "Name: " << myEmployee.name << endl;
+	cout << "Birth day: " << myEmployee.birthDay.day << "/"
+		<< myEmployee.birthDay.month << "/"
+		<< myEmployee.birthDay.year << endl;
+	cout << "Role: " << myEmployee.role << endl;
+	cout << "Salary: " << myEmployee.salary << endl;
+	return;
+}
+int main(){
+	Employee *myEmployee, tmpEmployee;
+	int length = 0;
+	cout << "So luong nhan vien: ";
+	cin >> length;
+// Khoi tao danh sách nhân viên
+	InitArray(myEmployee, length);
+// Nhân viên có luong cao nhat
+	cout << "Nhan vien co luong cao nhat: "<< endl;
+	tmpEmployee = searchSalaryMax(myEmployee, length);
+	Display(tmpEmployee);
+// Nhân viên có luong thap nhat
+	cout << "Nhan vien co luong thap nhat: " << endl;
+	tmpEmployee = searchSalaryMin(myEmployee, length);
+	Display(tmpEmployee);
+// Giai phóng vùng nho
+	delete [] myEmployee;
+	return 0;
+}	
+
+
+
+
+//Minh hoa dung ngan xep dao nguoc xau ki tu
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<iostream>
+
+using namespace std;
+
+typedef struct {
+	int top;		//vi tri node dinh
+	char *nodes;		//danh sach phan tu
+} Stack;
+ 
+/* Khai báo nguyên mau hàm */ 
+void init(Stack *stack);
+void push(Stack *stack, char node); 
+int pop(Stack *stack); 
+void release(Stack *stack);
+
+void init(Stack *stack){ 
+	stack = new Stack; 		//cap phat vung nho cho con tro
+	stack->top = -1;		//khoi tao ngan xep rong
+}
+
+void push(Stack *stack, char node){
+	//cout << "Stack is empty!" << endl;
+	Stack *tmpNodes = new Stack[stack->top + 2];	// cap phat vung nho moi
+	stack->top ++; 								// Tang chi so node dinh
+	for(int i=0; i<stack->top; i++) 			// Sao chép sang vùng nho moi
+		tmpNodes[i] = stack->nodes[i];
+	tmpNodes[stack->top] = node; 				// Thêm node moi vào dinh
+	delete [] stack->nodes; 					// Giai phóng vùng nho cu
+	stack->nodes = tmpNodes; 					// Tro vào vùng nho moi
+	return;
+}
+
+int pop(Stack *stack){
+	if(stack->top < 0){ 						// Kiem tra ngan xep rong
+		cout << "Stack is empty!" << endl;
+	return 0;
+	}
+	int result = stack->nodes[stack->top];		// Luu giu giá tri dinh
+	int *tmpNodes = new int[stack->top];		// Cap phát vùng nho moi
+	for(int i=0; i<stack->top; i++) 			// Sao chép sang vùng nho moi
+		tmpNodes[i] = stack->nodes[i];
+			stack->top --; 						// Giam chi so cua node dinh
+	delete [] stack->nodes; 					// Giai phóng vùng nho cu
+	stack->nodes = tmpNodes; 					// Tro vao vung nho moi
+	return result; 								// Tra ve gia tri node dinh
+}
+
+void release(Stack *stack){ 
+	delete [] stack->nodes; 	//Giai phong vung danh sach
+	delete stack;				//Giai phong con tro
+	return;
+}
+
+int main(){
+	Stack *stack;
+	init(stack); 				// Khoi tao ngan xep
+	char *strIn;
+//Nhap chuoi ki tu tu bàn phím 
+	cout << "Nhap chuoi: ";
+	cin >> strIn;
+	for(int i=0; i<strlen(strIn); i++) 		// Ðat vào ngan xep
+		push(stack, strIn[i]);
+	while(stack->top > -1)					//lay ra tu ngan xep
+		cout << pop(stack);
+	release(stack);				
+	return 0;
+}
+
+
+
+
+//Minh hoa Ghi File
+//Ghi cac ki tu nhap tu ban phim cho den khi nhap ki tu e
+//moi ki tu phan cach ' '
+
+#include<stdlib.h>
+#include<iostream>
+#include<fstream>
+#include<conio.h>
+#include<iomanip>
+
+using namespace std;
+
+const int length = 25; // Do dai toi da ten file
+
+int main(){
+	char fileName[length], input;
+	cout << "Ten tep tin: ";
+	cin >> setw(length) >> fileName; //Nhap ten file
+/* Mo file */
+	ofstream fileOut(fileName, ios::out);// Khai báo và mo file
+	if(!fileOut){ // Không mo duoc file 
+	cout << "Khong the tao duoc tep tin " << fileName << endl; 
+	exit(1);
+	}
+/* Ghi du lieu vao file */
+	do{
+	cin >> input;	//doc ki tu tu ban phim
+	fileOut << input << ' ';	//ghi ki tu vao file
+	}while((input != 'e')&&(fileOut));
+	fileOut << endl; // xuong dong cuoi file
+/* Ðóng file */
+	fileOut.close();	//Dong file
+	return 0;
+}
+
+
+
+
+
+//Minh hoa doc dl tu file ra man hinh
+//Ten File nhap tu ban phim
+
+#include<stdlib.h>
+#include<iostream>
+#include<fstream>
+#include<conio.h>
+#include<iomanip>
+
+using namespace std;
+
+const int length = 25; // Do dai toi da ten file
+
+int main(){
+	char fileName[length], output;
+	cout << "Ten tep tin: ";
+	cin >> setw(length) >> fileName; // Nhap ten file
+/* Mo file */
+	ifstream fileIn(fileName, ios::in); // Khai báo và mo file
+	if(!fileIn){ // Không mo duoc file
+		cout << "Khong the mo duoc tep tin " << fileName << endl;
+	exit(1);
+	}
+/* Ðoc file in ra màn hình */
+	while(fileIn >> output){// Doc ki tu tu file
+		cout << output << ' '; // Ghi ra màn hình
+	}
+	cout << endl; // Xuong dòng trên màn hình
+/* Ðóng file */
+	fileIn.close(); 
+}
+
+
+
+
+
+//minh hoa ghi file nhi phan, dl kieu struct nhap tu ban phim
+//ten file + so luong ban ghi nhap tu ban phim
+
+#include<stdlib.h>
+#include<iostream>
+#include<fstream>
+#include<conio.h>
+#include<iomanip>
+
+using namespace std;
+
+const int length = 25; // Do dai toi da ten file
+
+typedef struct {
+	int day;
+	int month;
+	int year;
+} Date;
+
+typedef struct {
+	char name[20];
+	Date birthDay;
+	char role[20];
+	float salary;
+} Employee;
+
+int main(){
+	char fileName[length];
+	cout << "Ten tep tin: ";
+	cin >> setw(length) >> fileName;
+	int recordNumber;
+	cout << "So luong ban ghi: "; 
+	cin >> recordNumber;
+/* Mo file */
+	// Khai báo và mo file
+	fstream fileOut(fileName, ios::out|ios::binary);
+	if(!fileOut){ // Không mo duoc file
+	cout << "Khong the tao duoc tep tin " << fileName << endl; 
+	exit(1);
+	}
+/* Ghi dl vao file */
+	Employee myEmployee;
+	for(int i=0; i<recordNumber; i++){
+	cout << "Ban ghi thu " << i+1 << endl;
+	cout << "Name: ";
+	cin >> myEmployee.name; 
+	cout << "Day of birth: ";
+	cin >> myEmployee.birthDay.day;
+	cout << "Month of birth: ";
+	cin >> myEmployee.birthDay.month;
+	cout << "Year of birth: ";
+	cin >> myEmployee.birthDay.year;
+	cout << "Role: ";
+	cin >> myEmployee.role; 
+	cout << "Salary: ";
+	cin >> myEmployee.salary; 
+// Ghi dl vao file
+	fileOut.write(reinterpret_cast<char *>(&myEmployee), sizeof(Employee));
+	}
+/* Ðóng file */
+	fileOut.close(); 
+}
+
+
+
+
+
+//minh hoa doc file nhi phan co ten nhap tu ban phim, dl kieu struct 
+
+#include<stdlib.h>
+#include<iostream>
+#include<fstream>
+#include<conio.h>
+#include<iomanip>
+
+using namespace std;
+
+const int length = 25; // Do dai toi da ten file
+
+typedef struct {
+	int day;
+	int month;
+	int year;
+} Date;
+
+typedef struct {
+	char name[20];
+	Date birthDay;
+	char role[20];
+	float salary;
+} Employee;
+
+int main(){
+	char fileName[length]; 
+	cout << "Ten tep tin: ";
+	cin >> setw(length) >> fileName; 
+/* Mo file */
+// Khai báo và mo file
+	fstream fileIn(fileName, ios::in|ios::binary);
+	if(!fileIn){ // Không mo duoc file 
+		cout << "Khong the mo duoc tep tin " << fileName << endl; 
+	exit(1);
+	}
+/* Doc file in ra màn hình */
+	Employee myEmployee;
+	while(fileIn.read(reinterpret_cast<char *>(&myEmployee),sizeof(Employee))){	// doc ki tu tu file 
+	cout << myEmployee.name << " " << myEmployee.birthDay.day << "/" 
+		<< myEmployee.birthDay.month << "/" << myEmployee.birthDay.year << "       "
+			<< myEmployee.role << " " << myEmployee.salary << endl; // Ghi kí tu ra màn hình
+	}
+/* Ðóng file */
+	fileIn.close(); 
+}
+
+
+
+
+
+
+//Minh hoa su dung lop Car voi cac thuoc tinh cuc bo
+//các phuong thuc public de dinh nghia cac doi tuong cu the
+
+#include<stdio.h>
+#include<conio.h>
+#include<string.h>
+#include<iostream>
+
+using namespace std;
+
+/* Dinh nghia lop */
+class Car{
+	private:
+		int speed; 			// Toc do
+		char mark[20]; 		// Nhãn hieu
+		float price; 		// Giá xe
+	public:
+		void setSpeed(int); // Gán toc do cho xe
+		int getSpeed(); 	// Ðoc toc do xe
+		void setMark(char*); // Gán nhãn cho xe
+		char* getMark(); 	// Ðoc nhãn xe
+		void setPrice(float); // Gán giá cho xe
+		float getPrice(); 		// Ðoc giá xe
+		void init(int, char[], float);// Khoi tao thông tin xe
+		void show(); 			// Gioi thieu xe
+};
+
+/* Khai báo phuong thuc bên ngoài lop */
+void Car::setSpeed(int speedIn){ // Gán toc do cho xe
+	speed = speedIn;
+}
+
+int Car::getSpeed(){			//doc toc do xe
+	return speed;	
+}
+
+void Car::setMark(char* markIn){	// Gán nhãn cho xe
+	strcpy(mark, markIn);
+}
+
+char* Car::getMark(){			// Ðoc nhãn xe
+	return mark;
+}
+
+void Car::setPrice(float priceIn){// Gán giá cho xe
+	price = priceIn;
+}
+
+float Car::getPrice(){ // Ðoc giá xe
+	return price;
+}
+
+void Car::init(int speedIn, char markIn[], float priceIn){
+	speed = speedIn;
+	strcpy(mark, markIn);
+	price = priceIn;	
+	return;
+}
+
+void Car::show(){ // Phuong thuc gioi thieu xe
+	cout << "This is a " << mark << " having a speed of "
+		<< speed << "km/h and its price is $" << price << endl;
+	return;
+}
+
+// Hàm main, chuong trình chính
+int main(){
+	Car myCar; // Khai báo bien lop
+// Khoi tao lan 1
+	cout << "Xe thu nhat: " << endl;
+	myCar.init(100, "Ford", 3000);
+	cout << "Toc do (km/h): " << myCar.getSpeed() << endl;
+	cout << "Nhan hieu : " << myCar.getMark() << endl;
+	cout << "Gia ($): " << myCar.getPrice() << endl;
+// Thay doi thuoc tính xe
+	cout << "Xe thu hai: " << endl;
+	myCar.setSpeed(150);
+	myCar.setMark("Mercedes");
+	myCar.setPrice(5000);
+	myCar.show();
+	return 0;
+}
+
+
+
+
+//Minh hoa ham permission() cua lop Person, là hàm ban cua lop Car
+//kiem tra 1 nguoi có du quyen dieu khien xe hay ko
+//du 18t voi xe thong thuong
+//du 21t voi xe có toc do > 150km/h
+
+#include<stdio.h>
+#include<conio.h>
+#include<string.h>
+#include<iostream>
+
+using namespace std;
+
+class Car; // Khai báo nguyên mau lop
+
+/* Ðinh nghia lop Person */
+class Person{
+	private:
+		char name[25];
+		int age; 
+	public:
+		void init(char[], int);		//Khoi tao thong tin ve Person
+		int permission(Car);		//Xac dinh quyen dieu khien xe
+};
+
+/* Ðinh nghia lop Car */
+class Car{
+	private:
+		int speed;					//toc do
+		char mark[20];				//Nhan hieu
+		float price;				//Gia xe
+	public:
+		void init(int, char[], float);		//Khoi tao thong tin ve xe
+		friend int Person::permission(Car);	//Khai báo hàm ban cua lop
+};
+
+/* Khai báo phuong thuc bên ngoài lop */
+void Person::init(char nameIn[], int ageIn){
+	strcpy(name, nameIn);
+	age = ageIn;
+	return;
+}
+
+void Car::init(int speedIn, char markIn[], float priceIn){
+	speed = speedIn;
+	strcpy(mark, markIn);
+	price = priceIn;
+	return;
+}
+
+/* Ðinh nghia hàm ban */
+int Person::permission(Car car){
+	if(age < 18)
+		return 0;
+//Truy nhap thuoc tính private thông qua doi tuong car
+	if((age < 21)&&(car.speed > 150))
+		return 0;
+	return 1;
+}
+
+// Hàm main, chuong trình chính
+int main(){
+
+// Khai báo các bien lop
+	Car car;
+	Person person;
+//Khoi tao cac doi tuong 
+	car.init(100, "Ford", 3000); 	
+	person.init("Vinh", 20);
+// Xác dinh quyen dieu khien xe	
+	if(person.permission(car)) //su dung ham ban
+		cout << "Co quyen dieu khien" << endl;
+	else
+		cout << "Khong co quyen dieu khien" << endl;
+	return 0;
+}
+
+
+
+
+
+
+
+//Minh hoa mang doi tuong
+//Nhap mang cac xe, tim xe có gia dat nhat 
+
+#include<stdio.h>
+#include<conio.h>
+#include<cstring>
+#include<iostream>
+
+using namespace std;
+
+/* Ðinh nghia lop */
+class Car{
+	private:
+		int speed;
+		char mark[20];
+		float price;
+	public:
+		void setSpeed(int); // Gán toc do cho xe
+		int getSpeed(); 	// Ðoc toc do xe
+		void setMark(char*); // Gán nhãn cho xe
+		string getMark(); 	// Ðoc nhãn xe
+		void setPrice(float); // Gán giá cho xe
+		float getPrice(); 		// Ðoc giá xe
+		Car(int speedIn=0, char* markIn="", float priceIn=0);// Khoi tao thông tin xe
+		void show(); 			// Gioi thieu xe
+};
+
+/* Khai báo phuong thuc bên ngoài lop */
+Car::Car(int speedIn, char *markIn, float priceIn){
+	speed = speedIn;
+	strcpy(mark, markIn);
+	price = priceIn;
+}
+
+void Car::setSpeed(int speedIn){ // Gán toc do cho xe
+	speed = speedIn;
+}
+
+int Car::getSpeed(){			//doc toc do xe
+	return speed;	
+}
+
+void Car::setMark(char* markIn){	// Gán nhãn cho xe
+	strcpy(mark, markIn);
+}
+
+string Car::getMark(){			// Ðoc nhãn xe
+	return mark;
+}
+
+void Car::setPrice(float priceIn){// Gán giá cho xe
+	price = priceIn;
+}
+
+float Car::getPrice(){ // Ðoc giá xe
+	return price;
+}
+
+void Car::show(){ // Phuong thuc gioi thieu xe
+	cout << "This is a " << mark << " having a speed of "
+		<< speed << "km/h and its price is $" << price << endl;
+	return;
+}
+
+// Hàm main, chuong trình chính
+int main(){
+	int length;				//chieu dai mang
+	float maxPrice = 0;		//Gia cao nhat
+	int index = 0;			//Chi so cua xe dat nhat
+	Car *cars;				//Khai bao mang doi tuong
+	cout << "So luong xe: ";	//Nhap sl xe, tuc chieu dai mang
+	cin >> length;
+//Cap phat bo nho dong cho mang
+	cars = new Car[length];
+//Khoi tao cac doi tuong trong mang
+	for(int i=0;i<length; i++){
+		int speed;			//Bien tam (toc do)
+		char mark[20];		//Bien tam nhan hieu
+		float price; 		//Bien tam giá xe
+		cout << "Xe thu " << i+1 << ": " <<endl;
+		cout << "Toc do (km/h): ";
+		cin >> speed; cars[i].setSpeed(speed); // Nhap toc do
+		cout << "Nhan hieu : ";
+		cin >> mark; cars[i].setMark(mark); // Nhap nhãn xe
+		cout << "Gia ($): ";
+		cin >> price; cars[i].setPrice(price); // Nhap giá xe
+		if(maxPrice < price){
+			maxPrice = price;
+			index = i;
+		}
+	}
+// Tìm xe gia cao nhat
+	for(int i=0; i<length; i++)
+		if(i == index){
+			cars[i].show(); // Gioi thieu xe co gia cao nhat
+			break;
+		}
+// Giai phong bo nho cua mang
+	delete [] cars;
+	cout << "The object has been destroyed!" << endl;
+	return 0;
+}
+
+
+
+
+
+
+
+//Minh hoa tính kê thua
+
+#include<stdio.h>
+#include<conio.h>
+#include<cstring>
+#include<iostream>
+
+using namespace std;
+
+/* Ðinh nghia lop Car*/
+class Car{
+	private:
+		int speed;
+		char mark[20];
+		float price;
+	public:
+		int getSpeed(); 	// Ðoc toc do xe
+		string getMark(); 	// Ðoc nhãn xe
+		float getPrice(); 		// Ðoc giá xe
+		Car(int speedIn=0, char markIn[]="", float priceIn=0);// Khoi tao thông tin xe
+		void show(); 			// Gioi thieu xe
+};
+
+/* Khai báo phuong thuc bên ngoài lop */
+Car::Car(int speedIn, char markIn[], float priceIn){
+	speed = speedIn;
+	strcpy(mark, markIn);
+	price = priceIn;
+}
+
+int Car::getSpeed(){			//doc toc do xe
+	return speed;	
+}
+
+string Car::getMark(){			// Ðoc nhãn xe
+	return mark;
+}
+
+float Car::getPrice(){ // Ðoc giá xe
+	return price;
+}
+
+void Car::show(){ // Phuong thuc gioi thieu xe
+	cout << "This is a " << mark << " having a speed of "
+		<< speed << "km/h and its price is $" << price << endl;
+	return;
+}
+
+/* Ðinh nghia lop Bus ke thua lop Car */
+class Bus: public Car{
+	int label; // so hieu tuyen xe
+	public:
+		// khoi tao du tham so
+		Bus(int sIn=0, char mIn[]="", float pIn=0, int lIn=0);
+		void show(); // Ðinh nghia chong phuong thuc
+};
+
+// khoi tao du tham so
+Bus::Bus(int sIn, char mIn[], float pIn, int lIn):Car(sIn, mIn, pIn){ 
+	label = lIn;
+}
+
+// Ðinh nghia nap chong phuong thuc
+void Bus::show(){ 		// Gioi thieu xe bus 
+	cout << "This is a bus of type " << getMark() << ", on the line "
+		<< label << ", having a speed of " << getSpeed()
+		<< "km/h and its price is $" << getPrice() << endl;
+	return;
+}
+
+
+// Hàm main, chuong trình chính
+int main(){
+	Car myCar(100, "Ford", 3000); //Bien doi tuong lop Car 
+	Bus myBus(80, "Mercedes", 5000, 27);// Bien doi tuong lop Bus
+	cout << "Gioi thieu xe o to lan 1:" << endl;
+	myCar.show();		//Goi phuong thuc show() cua lop Car, dl doi tuong myCar
+	cout << "Gioi thieu xe o to lan 2:" << endl;
+	myCar = myBus;		
+	myCar.show();		//Goi phuong thuc show() cua lop Car, dl doi tuong myBus
+	cout << "Gioi thieu xe bus:" << endl;
+	myBus.show();		//Goi phuong thuc show() cua lop Bus, dl doi tuong myBus
+	return 0;
+}
+
+	
+
+
+
+
+
+
+
+//minh hoa da hinh
+//Lop Bus ke thua lop Car
+//2 lop nay cung dinh nghia phuong thuc truu tuong show()
+
+#include<stdio.h>
+#include<conio.h>
+#include<cstring>
+#include<iostream>
+
+using namespace std;
+
+/* Ðinh nghia lop Car*/
+class Car{
+	private:
+		int speed;
+		char mark[20];
+		float price;
+	public:
+		int getSpeed(){return speed;}; 		// Ðoc toc do xe
+		string getMark(){return mark;};		// Ðoc nhãn xe
+		float getPrice(){return price;}; 	// Ðoc giá xe
+		Car(int speedIn=0, char markIn[]="", float priceIn=0);// Khoi tao thông tin xe
+		virtual void show(); 			// Gioi thieu xe, truu tuong
+};
+
+/* Khai báo phuong thuc bên ngoài lop */
+Car::Car(int speedIn, char markIn[], float priceIn){
+	speed = speedIn;
+	strcpy(mark, markIn);
+	price = priceIn;
+}
+
+// Phuong thuc truu tuong gioi thieu xe
+void Car::show(){
+	cout << "This is a " << mark << " having a speed of "
+		<< speed << "km/h and its price is $" << price << endl;
+	return;
+}
+
+/* Ðinh nghia lop Bus ke thua lop Car */
+class Bus: public Car{
+	int label; // so hieu tuyen xe
+	public:
+		// khoi tao du tham so
+		Bus(int sIn=0, char mIn[]="", float pIn=0, int lIn=0);
+		void show(); // Ðinh nghia chong phuong thuc
+};
+
+// khoi tao du tham so
+Bus::Bus(int sIn, char mIn[], float pIn, int lIn):Car(sIn, mIn, pIn){ 
+	label = lIn;
+}
+
+// Ðinh nghia nap chong phuong thuc
+void Bus::show(){ 		// Gioi thieu xe bus 
+	cout << "This is a bus of type " << getMark() << ", on the line "
+		<< label << ", having a speed of " << getSpeed()
+		<< "km/h and its price is $" << getPrice() << endl;
+	return;
+}
+
+
+// Hàm main, chuong trình chính
+int main(){
+	Car *ptrCar, myCar(100, "Ford", 3000); //Bien doi tuong lop Car 
+	Bus myBus(80, "Mercedes", 5000, 27);// Bien doi tuong lop Bus
+	ptrCar = &myCar;		//tro den doi tuong lop Car
+	ptrCar->show();			//Phuong thuc cua lop Car
+	ptrCar = &myBus;		//tro den doi tuong lop Bus
+	ptrCar->show();			//Phuong thuc cua lop Bus
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+//Minh hoa 1 so thao tac tren 1 tap hop cac phan tu có kieu char
+//su dung thu vien Set
+
+#include <stdio.h>
+#include <conio.h>
+#include <set>
+#include <iostream>
+#include <stdlib.h>
+
+using namespace std;
+
+int main(){
+	system("cls");
+	set <char> mySet;
+	int function;
+	do{
+		cout << "CAC CHUC NANG:" << endl;
+		cout << "1: Them mot phan tu vao tap hop" << endl;
+		cout << "2: Loai bo mot phan tu khoi tap hop" << endl;
+		cout << "3: Xem tat ca cac phan tu cua tap hop" << endl;
+		cout << "5: Thoat!" << endl;
+		cout << "=====================================" << endl; 
+		cout << "Chon chuc nang: " << endl;
+		cin >> function;
+		switch(function){
+			case 1: // Thêm vào
+				char phantu;
+				cout << "Ki tu them vao: ";
+				cin >> phantu;
+				mySet.insert(phantu);
+				break;
+			case 2: // Loai ra
+				//char phantu;
+				cout << "Loai bo ki tu: " << endl;
+				cin >> phantu;
+				mySet.erase(phantu);
+				break;
+			case 3: // Duyet
+				cout<<"Cac phan tu cua tap hop la:"<<endl;
+				set<char>::iterator i;
+				for(i=mySet.begin(); i != mySet.end(); i++)
+					cout << *i << " ";
+				cout << endl;
+				system("pause");
+				break;
+		}
+	}while(function != 5);
+	return 0;
+}
+
+
+
+
+
+
+//Minh hoa 1 so thao tac tren lop chuoi
+//su dung thu vien chuoi
+
+#include <stdio.h>
+#include <conio.h>
+#include <cstring>
+#include <iostream>
+#include <stdlib.h>
+
+
+using namespace std;
+
+int main(){
+	system("cls");
+	string myStr;
+	int function;
+	do{
+	cout << "CAC CHUC NANG:" << endl;	
+	cout << "1: Cong them mot chuoi" << endl;	
+	cout << "2: Chen them mot chuoi" << endl;
+	cout << "3: Xoa di mot chuoi" << endl;
+	cout << "4: Tim mot chuoi con" << endl;
+	cout << "5: Xem noi dung chuoi" << endl;
+	cout << "6: Xem chieu dai chuoi" << endl;	
+	cout << "9: Thoat!" << endl;
+	cout << "=====================================" << endl; 
+	cout << "Chon chuc nang: ";
+	cin >> function;
+	switch(function){
+		case 1: // Thêm vào cuoi
+			{
+			string subStr;
+			cout << "Chuoi them vao: ";
+			cin >> subStr;
+			myStr += subStr;
+			break;}
+		case 2:  // Chèn vào chuoi
+			{
+			string subStr;
+			int position;
+			cout << "Chuoi them vao: ";
+			cin >> subStr;
+			cout << "Vi tri chen:";
+			cin >> position;
+			myStr.insert(position, subStr);
+			break;}
+		case 3: // Xoá di mot chuoi con
+			{
+			int position, count;
+			cout << "Vi tri bat dau xoa:";
+			cin >> position;	
+			cout << "Do dai xoa:";
+			cin >> count;
+			myStr.erase(position, count);
+			break;}
+		case 4: // Tìm chuoi con
+			{
+			string subStr;
+			int position;
+			cout << "Chuoi con can tim:";
+			cin >> subStr;
+			cout << "Vi tri bat dau tim:";
+			cin >> position;
+			if(myStr.find(subStr, position))	
+				cout << "Co xuat hien!" << endl;	
+			else
+				cout << "Khong xuat hien!" << endl;	
+			break;}
+		case 5: // Duyet
+			cout << "Noi dung chuoi:" << endl;	
+			cout << myStr << endl;
+			break;
+		case 6: // Duyet
+			cout << "Chieu dai chuoi:" << myStr.length() << endl;
+			break;
+		}
+	}while(function != 9);
+return 0;
+}
+
+
+
+
+
+
+
+//Minh hoa dao nguoc xau
+//su dung thu vien stack
+
+#include <stdio.h>
+#include <conio.h>
+#include <cstring>
+#include <iostream>
+#include <stdlib.h>
+#include  <stack>
+
+using namespace std;
+
+int main(){
+	system("cls");
+	stack<char> myStack;
+	char strIn[250];
+	cout << "Nhap chuoi: ";
+	cin >> strIn; 
+	for(int i=0; i<strlen(strIn); i++) 
+		myStack.push(strIn[i]);		//Day tung ki tu vao ngan xep
+	while(!myStack.empty()) // Lay tung ki tu ra khi ngan xep khac rong
+	{
+		cout << myStack.top();
+		myStack.pop();
+		}
+	return 0;
+}
+
+
+
+
+
+
+
+//Minh hoa 
+//su dung thu vien queue
+
+#include <stdio.h>
+#include <conio.h>
+#include <cstring>
+#include <iostream>
+#include <stdlib.h>
+#include <queue>
+
+using namespace std;
+
+int main(){
+	system("cls");
+	queue<int> myQueue;
+	int function;
+	do{
+		cout << "CAC CHUC NANG:" << endl;
+		cout << "1: Them mot tien trinh vao hang doi" << endl;
+		cout << "2: Dua mot tien trinh trinh vao thuc hien" << endl;
+		cout << "3: Xem tat ca cac tien trinh trong hang doi" << endl;
+		cout << "5: Thoat!" << endl;
+		cout << "========================================" << endl;
+		cout << "Chon chuc nang: ";
+		cin >> function;
+		switch(function){
+			case 1: // Thêm vào hàng doi
+				{
+				int maso;
+				cout << "Ma so tien trinh vao hang doi: ";
+				cin >> maso;
+				myQueue.push(maso);
+				break;
+			}
+			case 2: // lay ra khoi hang doi
+				{
+					if (myQueue.empty())
+						{
+							cout << "Hang doi rong! Ko co tien trinh nao duoc thuc hien! " << endl;
+							break;
+						}
+					else
+					{
+						cout << "Tien trinh duoc thuc hien: " << myQueue.front() << endl;
+						myQueue.pop();
+						break;	
+					}
+			}
+			case 3: // Duyet hàng doi
+				while (!myQueue.empty()) 
+    			{ 
+        			cout << '\t' << myQueue.front(); 
+        			myQueue.pop(); 
+    			} 
+    			cout << '\n';
+				break;
+			}
+	}while(function != 5);
+	return 0;
+}
+
+
+
+
