@@ -1,0 +1,1914 @@
+//Tính tổng, hiệu, tích, thương của hai số nguyên
+
+#include <stdio.h>
+
+int main() {
+    int a, b;
+    printf("Nhap hai so nguyen: ");
+    scanf("%d %d", &a, &b);
+
+    printf("Tong: %d\n", a + b);
+    printf("Hieu: %d\n", a - b);
+    printf("Tich: %d\n", a * b);
+    
+    if (b != 0)
+        printf("Thuong: %.2f\n", (float)a / b);
+    else
+        printf("Khong the chia cho 0.\n");
+
+    return 0;
+}
+
+
+// Tính chu vi và diện tích hình chữ nhật
+
+#include <stdio.h>
+
+int main() {
+    float dai, rong;
+    printf("Nhap chieu dai va chieu rong: ");
+    scanf("%f %f", &dai, &rong);
+
+    float chuVi = 2 * (dai + rong);
+    float dienTich = dai * rong;
+
+    printf("Chu vi: %.2f\n", chuVi);
+    printf("Dien tich: %.2f\n", dienTich);
+
+    return 0;
+}
+
+
+//Tính diện tích tam giác khi biết 3 cạnh
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+    float a, b, c;
+    printf("Nhap 3 canh cua tam giac: ");
+    scanf("%f %f %f", &a, &b, &c);
+
+    if (a + b > c && a + c > b && b + c > a) {
+        float p = (a + b + c) / 2;
+        float area = sqrt(p * (p - a) * (p - b) * (p - c));
+        printf("Dien tich tam giac: %.2f\n", area);
+    } else {
+        printf("Khong phai tam giac hop le.\n");
+    }
+
+    return 0;
+}
+
+
+// Tính giai thừa của một số nguyên
+
+#include <stdio.h>
+
+int main() {
+    int n;
+    long long giaithua = 1;
+    printf("Nhap so nguyen n: ");
+    scanf("%d", &n);
+
+    if (n < 0) {
+        printf("Khong tinh duoc giai thua cua so am.\n");
+    } else {
+        for (int i = 1; i <= n; i++) {
+            giaithua *= i;
+        }
+        printf("%d! = %lld\n", n, giaithua);
+    }
+
+    return 0;
+}
+
+
+//Tính tổng các chữ số của một số nguyên
+
+#include <stdio.h>
+
+int main() {
+    int n, sum = 0;
+    printf("Nhap mot so nguyen: ");
+    scanf("%d", &n);
+
+    int temp = n > 0 ? n : -n;
+    while (temp != 0) {
+        sum += temp % 10;
+        temp /= 10;
+    }
+
+    printf("Tong cac chu so cua %d la: %d\n", n, sum);
+    return 0;
+}
+
+//doi nhiet do
+
+#include <stdio.h>
+
+int main() {
+    int choice;
+    float temp;
+
+    printf("1. Doi C sang F\n");
+    printf("2. Doi F sang C\n");
+    printf("Chon: ");
+    scanf("%d", &choice);
+
+    if (choice == 1) {
+        printf("Nhap nhiet do (do C): ");
+        scanf("%f", &temp);
+        printf("Do F = %.2f\n", temp * 9 / 5 + 32);
+    } else if (choice == 2) {
+        printf("Nhap nhiet do (do F): ");
+        scanf("%f", &temp);
+        printf("Do C = %.2f\n", (temp - 32) * 5 / 9);
+    } else {
+        printf("Lua chon khong hop le.\n");
+    }
+
+    return 0;
+}
+
+
+//in ra so dao nguoc
+
+#include <stdio.h>
+
+int main() {
+    int n, reversed = 0;
+    printf("Nhap so nguyen N: ");
+    scanf("%d", &n);
+
+    int temp = n > 0 ? n : -n;
+    while (temp != 0) {
+        reversed = reversed * 10 + temp % 10;
+        temp /= 10;
+    }
+
+    if (n < 0) reversed = -reversed;
+    printf("So dao nguoc: %d\n", reversed);
+
+    return 0;
+}
+
+
+//kiem tra so nguyen to
+
+#include <stdio.h>
+#include <stdbool.h>
+
+bool isPrime(int n) {
+    if (n < 2) return false;
+    for (int i = 2; i*i <= n; i++) {
+        if (n % i == 0) return false;
+    }
+    return true;
+}
+
+int main() {
+    int n;
+    printf("Nhap so nguyen: ");
+    scanf("%d", &n);
+
+    if (isPrime(n))
+        printf("%d la so nguyen to.\n", n);
+    else
+        printf("%d khong phai la so nguyen to.\n", n);
+
+    return 0;
+}
+
+
+//Tính tổng các số lẻ từ 1 đến n
+
+#include <stdio.h>
+
+int main() {
+    int n, sum = 0;
+    printf("Nhap so n: ");
+    scanf("%d", &n);
+
+    for (int i = 1; i <= n; i += 2) {
+        sum += i;
+    }
+
+    printf("Tong cac so le tu 1 den %d la %d\n", n, sum);
+    return 0;
+}
+
+
+//Tính tổng các số chẵn từ 1 đến n
+
+#include <stdio.h>
+
+int main() {
+    int n, sum = 0;
+    printf("Nhap so n: ");
+    scanf("%d", &n);
+
+    for (int i = 2; i <= n; i += 2) {
+        sum += i;
+    }
+
+    printf("Tong cac so chan tu 1 den %d la %d\n", n, sum);
+    return 0;
+}
+
+
+
+//Tính tổng của dãy số S = 1 + 1/2 + 1/3 + ... + 1/n
+
+#include <stdio.h>
+
+int main() {
+    int n;
+    double sum = 0.0;
+
+    printf("Nhap n: ");
+    scanf("%d", &n);
+
+    for (int i = 1; i <= n; i++) {
+        sum += 1.0 / i;
+    }
+
+    printf("Tong S = %.5lf\n", sum);
+    return 0;
+}
+
+
+//Tính lũy thừa a^b (không dùng hàm thư viện)
+
+#include <stdio.h>
+
+int main() {
+    int a, b;
+    long long result = 1;
+
+    printf("Nhap a va b: ");
+    scanf("%d %d", &a, &b);
+
+    for (int i = 1; i <= b; i++) {
+        result *= a;
+    }
+
+    printf("%d^%d = %lld\n", a, b, result);
+    return 0;
+}
+
+
+//Kiểm tra số hoàn hảo (Perfect number)
+
+#include <stdio.h>
+
+int main() {
+    int n, sum = 0;
+    printf("Nhap so nguyen n: ");
+    scanf("%d", &n);
+
+    for (int i = 1; i < n; i++) {
+        if (n % i == 0) {
+            sum += i;
+        }
+    }
+
+    if (sum == n)
+        printf("%d la so hoan hao.\n", n);
+    else
+        printf("%d khong phai la so hoan hao.\n", n);
+
+    return 0;
+}
+
+
+//Tính tổng các chữ số chẵn của một số
+
+#include <stdio.h>
+
+int main() {
+    int n, sum = 0;
+    printf("Nhap so nguyen: ");
+    scanf("%d", &n);
+
+    int temp = n > 0 ? n : -n;
+    while (temp != 0) {
+        int digit = temp % 10;
+        if (digit % 2 == 0)
+            sum += digit;
+        temp /= 10;
+    }
+
+    printf("Tong chu so chan: %d\n", sum);
+    return 0;
+}
+
+
+//Tính tổng các chữ số lẻ của một số
+#include <stdio.h>
+
+int main() {
+    int n, sum = 0;
+    printf("Nhap so nguyen: ");
+    scanf("%d", &n);
+
+    int temp = n > 0 ? n : -n;
+    while (temp != 0) {
+        int digit = temp % 10;
+        if (digit % 2 != 0)
+            sum += digit;
+        temp /= 10;
+    }
+
+    printf("Tong chu so le: %d\n", sum);
+    return 0;
+}
+
+
+//Tìm Ước Chung Lớn Nhất (GCD) và Bội Chung Nhỏ Nhất (LCM)
+
+#include <stdio.h>
+
+int ucln(int a, int b) {
+    while (b != 0) {
+        int r = a % b;
+        a = b;
+        b = r;
+    }
+    return a;
+}
+
+int bcnn(int a, int b) {
+    return (a * b) / ucln(a, b);
+}
+
+int main() {
+    int a, b;
+    printf("Nhap hai so nguyen: ");
+    scanf("%d %d", &a, &b);
+
+    printf("UCLN: %d\n", ucln(a, b));
+    printf("BCNN: %d\n", bcnn(a, b));
+
+    return 0;
+}
+
+//so fibonanchi thu n
+
+#include <stdio.h>
+
+int fibonacci(int n) {
+    if (n <= 1) return n;
+    int a = 0, b = 1, c;
+    for (int i = 2; i <= n; i++) {
+        c = a + b;
+        a = b;
+        b = c;
+    }
+    return b;
+}
+
+int main() {
+    int n;
+    printf("Nhap n: ");
+    scanf("%d", &n);
+
+    printf("So Fibonacci thu %d la: %d\n", n, fibonacci(n));
+    return 0;
+}
+
+
+
+//Tính căn bậc hai gần đúng của một số (không dùng sqrt)
+#include <stdio.h>
+
+double canBacHai(double x) {
+    double guess = x / 2, epsilon = 0.00001;
+
+    while ((guess * guess - x) > epsilon || (x - guess * guess) > epsilon) {
+        guess = (guess + x / guess) / 2;
+    }
+
+    return guess;
+}
+
+int main() {
+    double x;
+    printf("Nhap so x: ");
+    scanf("%lf", &x);
+
+    if (x < 0) {
+        printf("Khong tinh duoc can bac hai cua so am.\n");
+    } else {
+        printf("Can bac hai gan dung: %.5lf\n", canBacHai(x));
+    }
+
+    return 0;
+}
+
+
+//chuyen sang he nhi phan
+
+#include <stdio.h>
+
+void doiNhiPhan(int n) {
+    if (n == 0) {
+        printf("0");
+        return;
+    }
+
+    int binary[32], i = 0;
+
+    while (n > 0) {
+        binary[i++] = n % 2;
+        n /= 2;
+    }
+
+    for (int j = i - 1; j >= 0; j--)
+        printf("%d", binary[j]);
+}
+
+int main() {
+    int n;
+    printf("Nhap so nguyen: ");
+    scanf("%d", &n);
+
+    printf("Nhi phan: ");
+    doiNhiPhan(n);
+    printf("\n");
+
+    return 0;
+}
+
+
+
+
+
+//Chuyển số nguyên sang hệ bát phân (cơ số 8)
+
+
+#include <stdio.h>
+
+void doiBatPhan(int n) {
+    if (n == 0) {
+        printf("0");
+        return;
+    }
+
+    int octal[32], i = 0;
+
+    while (n > 0) {
+        octal[i++] = n % 8;
+        n /= 8;
+    }
+
+    for (int j = i - 1; j >= 0; j--)
+        printf("%d", octal[j]);
+}
+
+int main() {
+    int n;
+    printf("Nhap so nguyen: ");
+    scanf("%d", &n);
+
+    printf("Bat phan: ");
+    doiBatPhan(n);
+    printf("\n");
+
+    return 0;
+}
+
+
+
+# Tạo mã nguồn cho các bài từ 21 đến 40, phân tách bằng comment tiêu đề.
+code_blocks_21_40 = [
+    ("Bài 21: Chuyển số nguyên sang hệ thập lục phân", """
+// Bài 21: Chuyển số nguyên sang hệ thập lục phân
+#include <stdio.h>
+
+void doiThapLucPhan(int n) {
+    char hex[32];
+    int i = 0;
+
+    if (n == 0) {
+        printf("0");
+        return;
+    }
+
+    while (n != 0) {
+        int temp = n % 16;
+        if (temp < 10)
+            hex[i++] = temp + '0';
+        else
+            hex[i++] = temp - 10 + 'A';
+        n /= 16;
+    }
+
+    for (int j = i - 1; j >= 0; j--)
+        printf("%c", hex[j]);
+}
+
+int main() {
+    int n;
+    printf("Nhap so nguyen: ");
+    scanf("%d", &n);
+
+    printf("He thap luc phan: ");
+    doiThapLucPhan(n);
+    printf("\\n");
+
+    return 0;
+}
+"""),
+    ("Bài 22: Chuyển số nguyên sang hệ M", """
+// Bài 22: Chuyển số nguyên sang hệ M
+#include <stdio.h>
+
+void doiHeCoSoM(int n, int M) {
+    int digits[64], i = 0;
+
+    if (M < 2 || M > 36) {
+        printf("Co so M khong hop le.\\n");
+        return;
+    }
+
+    if (n == 0) {
+        printf("0");
+        return;
+    }
+
+    while (n > 0) {
+        int r = n % M;
+        digits[i++] = r;
+        n /= M;
+    }
+
+    for (int j = i - 1; j >= 0; j--) {
+        if (digits[j] < 10)
+            printf("%d", digits[j]);
+        else
+            printf("%c", digits[j] - 10 + 'A');
+    }
+}
+
+int main() {
+    int n, M;
+    printf("Nhap so nguyen: ");
+    scanf("%d", &n);
+    printf("Nhap co so M (2-36): ");
+    scanf("%d", &M);
+
+    printf("He co so %d: ", M);
+    doiHeCoSoM(n, M);
+    printf("\\n");
+
+    return 0;
+}
+"""),
+    ("Bài 23: Tìm số nguyên tố thứ n", """
+// Bài 23: Tìm số nguyên tố thứ n
+#include <stdio.h>
+#include <stdbool.h>
+
+bool isPrime(int n) {
+    if (n < 2) return false;
+    for (int i = 2; i * i <= n; i++) {
+        if (n % i == 0)
+            return false;
+    }
+    return true;
+}
+
+int main() {
+    int n, count = 0, number = 2;
+    printf("Nhap n: ");
+    scanf("%d", &n);
+
+    while (1) {
+        if (isPrime(number)) {
+            count++;
+            if (count == n) break;
+        }
+        number++;
+    }
+
+    printf("So nguyen to thu %d la: %d\\n", n, number);
+    return 0;
+}
+"""),
+    ("Bài 24: Phân tích một số thành tích các thừa số nguyên tố", """
+// Bài 24: Phân tích một số thành tích các thừa số nguyên tố
+#include <stdio.h>
+
+int main() {
+    int n;
+    printf("Nhap so nguyen n: ");
+    scanf("%d", &n);
+
+    printf("Cac thua so nguyen to cua %d la: ", n);
+    for (int i = 2; i <= n; i++) {
+        while (n % i == 0) {
+            printf("%d ", i);
+            n /= i;
+        }
+    }
+    printf("\\n");
+    return 0;
+}
+"""),
+    ("Bài 25: Giải phương trình bậc hai ax^2 + bx + c = 0", """
+// Bài 25: Giải phương trình bậc hai ax^2 + bx + c = 0
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+    float a, b, c, delta, x1, x2;
+    printf("Nhap a, b, c: ");
+    scanf("%f %f %f", &a, &b, &c);
+
+    if (a == 0) {
+        if (b == 0) {
+            printf("Phuong trinh vo nghiem\\n");
+        } else {
+            printf("Nghiem x = %.2f\\n", -c / b);
+        }
+    } else {
+        delta = b * b - 4 * a * c;
+        if (delta < 0)
+            printf("Phuong trinh vo nghiem\\n");
+        else if (delta == 0)
+            printf("Phuong trinh co nghiem kep: x = %.2f\\n", -b / (2 * a));
+        else {
+            x1 = (-b + sqrt(delta)) / (2 * a);
+            x2 = (-b - sqrt(delta)) / (2 * a);
+            printf("Hai nghiem la: x1 = %.2f, x2 = %.2f\\n", x1, x2);
+        }
+    }
+    return 0;
+}
+"""),
+    ("Bài 26: Giải phương trình bậc nhất ax + b = 0", """
+// Bài 26: Giải phương trình bậc nhất ax + b = 0
+#include <stdio.h>
+
+int main() {
+    float a, b;
+    printf("Nhap a, b: ");
+    scanf("%f %f", &a, &b);
+
+    if (a == 0) {
+        if (b == 0)
+            printf("Phuong trinh vo so nghiem\\n");
+        else
+            printf("Phuong trinh vo nghiem\\n");
+    } else {
+        printf("Nghiem x = %.2f\\n", -b / a);
+    }
+
+    return 0;
+}
+"""),
+    ("Bài 27: Nhập hai số nguyên, tính tổng của chúng", """
+// Bài 27: Nhập hai số nguyên, tính tổng của chúng
+#include <stdio.h>
+
+int main() {
+    int a, b;
+    printf("Nhap hai so nguyen: ");
+    scanf("%d %d", &a, &b);
+    printf("Tong = %d\\n", a + b);
+    return 0;
+}
+"""),
+    ("Bài 28: Nhập hai số nguyên, tính hiệu của số thứ nhất và số thứ hai", """
+// Bài 28: Nhập hai số nguyên, tính hiệu của số thứ nhất và số thứ hai
+#include <stdio.h>
+
+int main() {
+    int a, b;
+    printf("Nhap hai so nguyen: ");
+    scanf("%d %d", &a, &b);
+    printf("Hieu = %d\\n", a - b);
+    return 0;
+}
+"""),
+    ("Bài 29: Nhập hai số nguyên, tính hiệu của số thứ hai và số thứ nhất", """
+// Bài 29: Nhập hai số nguyên, tính hiệu của số thứ hai và số thứ nhất
+#include <stdio.h>
+
+int main() {
+    int a, b;
+    printf("Nhap hai so nguyen: ");
+    scanf("%d %d", &a, &b);
+    printf("Hieu = %d\\n", b - a);
+    return 0;
+}
+"""),
+    ("Bài 30: Nhập hai số nguyên, tính tích của chúng", """
+// Bài 30: Nhập hai số nguyên, tính tích của chúng
+#include <stdio.h>
+
+int main() {
+    int a, b;
+    printf("Nhap hai so nguyen: ");
+    scanf("%d %d", &a, &b);
+    printf("Tich = %d\\n", a * b);
+    return 0;
+}
+""")
+]
+
+# Tạo mã nguồn cho các bài từ 31 đến 40, phân tách bằng comment tiêu đề.
+code_blocks_31_40 = [
+    ("Bài 31: Nhập hai số nguyên, tính thương (kết quả chia thực)", """
+// Bài 31: Nhập hai số nguyên, tính thương (kết quả chia thực)
+#include <stdio.h>
+
+int main() {
+    int a, b;
+    printf("Nhap hai so nguyen: ");
+    scanf("%d %d", &a, &b);
+    if (b == 0) {
+        printf("Khong the chia cho 0\\n");
+    } else {
+        printf("Thuong (chia thuc) = %.2f\\n", (float)a / b);
+    }
+    return 0;
+}
+"""),
+    ("Bài 32: Nhập hai số nguyên, tính thương (kết quả chia nguyên)", """
+// Bài 32: Nhập hai số nguyên, tính thương (kết quả chia nguyên)
+#include <stdio.h>
+
+int main() {
+    int a, b;
+    printf("Nhap hai so nguyen: ");
+    scanf("%d %d", &a, &b);
+    if (b == 0) {
+        printf("Khong the chia cho 0\\n");
+    } else {
+        printf("Thuong (chia nguyen) = %d\\n", a / b);
+    }
+    return 0;
+}
+"""),
+    ("Bài 33: Nhập hai số thực, tính thương (kết quả chia thực)", """
+// Bài 33: Nhập hai số thực, tính thương (kết quả chia thực)
+#include <stdio.h>
+
+int main() {
+    float a, b;
+    printf("Nhap hai so thuc: ");
+    scanf("%f %f", &a, &b);
+    if (b == 0) {
+        printf("Khong the chia cho 0\\n");
+    } else {
+        printf("Thuong = %.2f\\n", a / b);
+    }
+    return 0;
+}
+"""),
+    ("Bài 34: Nhập hai số nguyên, tính phần dư của phép chia", """
+// Bài 34: Nhập hai số nguyên, tính phần dư của phép chia
+#include <stdio.h>
+
+int main() {
+    int a, b;
+    printf("Nhap hai so nguyen: ");
+    scanf("%d %d", &a, &b);
+    if (b == 0) {
+        printf("Khong the chia lay du cho 0\\n");
+    } else {
+        printf("Phan du = %d\\n", a % b);
+    }
+    return 0;
+}
+"""),
+    ("Bài 35: Tính tổng, hiệu, tích, thương của hai số bất kỳ", """
+// Bài 35: Tính tổng, hiệu, tích, thương của hai số bất kỳ
+#include <stdio.h>
+
+int main() {
+    float a, b;
+    printf("Nhap hai so: ");
+    scanf("%f %f", &a, &b);
+
+    printf("Tong = %.2f\\n", a + b);
+    printf("Hieu = %.2f\\n", a - b);
+    printf("Tich = %.2f\\n", a * b);
+    if (b != 0)
+        printf("Thuong = %.2f\\n", a / b);
+    else
+        printf("Khong the chia cho 0\\n");
+
+    return 0;
+}
+"""),
+    ("Bài 36: Tính diện tích hình chữ nhật (dùng phép nhân)", """
+// Bài 36: Tính diện tích hình chữ nhật (dùng phép nhân)
+#include <stdio.h>
+
+int main() {
+    float dai, rong;
+    printf("Nhap chieu dai va chieu rong: ");
+    scanf("%f %f", &dai, &rong);
+    printf("Dien tich = %.2f\\n", dai * rong);
+    return 0;
+}
+"""),
+    ("Bài 37: Tính diện tích hình tròn với bán kính r", """
+// Bài 37: Tính diện tích hình tròn với bán kính r
+#include <stdio.h>
+#define PI 3.14159
+
+int main() {
+    float r;
+    printf("Nhap ban kinh: ");
+    scanf("%f", &r);
+    printf("Dien tich hinh tron = %.2f\\n", PI * r * r);
+    return 0;
+}
+"""),
+    ("Bài 38: Nhập 3 số, tính tổng và trung bình cộng", """
+// Bài 38: Nhập 3 số, tính tổng và trung bình cộng
+#include <stdio.h>
+
+int main() {
+    float a, b, c;
+    printf("Nhap 3 so: ");
+    scanf("%f %f %f", &a, &b, &c);
+    float tong = a + b + c;
+    float tbc = tong / 3;
+    printf("Tong = %.2f, Trung binh cong = %.2f\\n", tong, tbc);
+    return 0;
+}
+"""),
+    ("Bài 39: Tính lũy thừa a^b (1: vòng lặp, 2: pow)", """
+// Bài 39: Tính lũy thừa a^b (1: vòng lặp, 2: pow)
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+    int chon;
+    int a, b;
+    printf("Nhap a, b: ");
+    scanf("%d %d", &a, &b);
+    printf("Chon cach tinh (1: vong lap, 2: pow): ");
+    scanf("%d", &chon);
+
+    if (chon == 1) {
+        int kq = 1;
+        for (int i = 0; i < b; i++)
+            kq *= a;
+        printf("Ket qua: %d\\n", kq);
+    } else if (chon == 2) {
+        printf("Ket qua: %.2f\\n", pow(a, b));
+    } else {
+        printf("Lua chon khong hop le\\n");
+    }
+
+    return 0;
+}
+"""),
+    ("Bài 40: Tính tổng các số từ 1 đến n (dùng công thức)", """
+// Bài 40: Tính tổng các số từ 1 đến n (dùng công thức)
+#include <stdio.h>
+
+int main() {
+    int n;
+    printf("Nhap n: ");
+    scanf("%d", &n);
+    int tong = n * (n + 1) / 2;
+    printf("Tong = %d\\n", tong);
+    return 0;
+}
+""")
+]
+
+
+// Bài 41: Tính hiệu của tổng các số chẵn và tổng các số lẻ từ 1 đến n
+#include <stdio.h>
+
+int main() {
+    int n, tongChan = 0, tongLe = 0;
+    printf("Nhap n: ");
+    scanf("%d", &n);
+    for (int i = 1; i <= n; i++) {
+        if (i % 2 == 0)
+            tongChan += i;
+        else
+            tongLe += i;
+    }
+    printf("Hieu = %d\n", tongChan - tongLe);
+    return 0;
+}
+
+
+// Bài 42: Phép chia có kiểm tra chia cho 0
+#include <stdio.h>
+
+int main() {
+    float a, b;
+    printf("Nhap hai so: ");
+    scanf("%f %f", &a, &b);
+    if (b == 0)
+        printf("Khong the chia cho 0\n");
+    else
+        printf("Thuong = %.2f\n", a / b);
+    return 0;
+}
+
+
+// Bài 43: Nhập ba số, tìm tổng của hai số lớn nhất
+#include <stdio.h>
+
+int main() {
+    int a, b, c, tong;
+    printf("Nhap 3 so: ");
+    scanf("%d %d %d", &a, &b, &c);
+    if (a <= b && a <= c)
+        tong = b + c;
+    else if (b <= a && b <= c)
+        tong = a + c;
+    else
+        tong = a + b;
+    printf("Tong hai so lon nhat = %d\n", tong);
+    return 0;
+}
+
+
+// Bài 44: Tính giá trị biểu thức (a + b)^2 hoặc (a - b)^2
+#include <stdio.h>
+
+int main() {
+    int a, b, chon;
+    printf("Nhap a, b: ");
+    scanf("%d %d", &a, &b);
+    printf("Chon 1: (a + b)^2 | Chon 2: (a - b)^2: ");
+    scanf("%d", &chon);
+    if (chon == 1)
+        printf("Ket qua = %d\n", (a + b) * (a + b));
+    else if (chon == 2)
+        printf("Ket qua = %d\n", (a - b) * (a - b));
+    else
+        printf("Lua chon khong hop le\n");
+    return 0;
+}
+
+// Bài 45: Tính giá trị biểu thức a^2 + b^2 + 2ab
+#include <stdio.h>
+
+int main() {
+    int a, b;
+    printf("Nhap a, b: ");
+    scanf("%d %d", &a, &b);
+    int kq = a * a + b * b + 2 * a * b;
+    printf("Ket qua = %d\n", kq);
+    return 0;
+}
+
+
+// Bài 46: Hoán đổi hai số không dùng biến tạm
+#include <stdio.h>
+
+int main() {
+    int a, b;
+    printf("Nhap a, b: ");
+    scanf("%d %d", &a, &b);
+    a = a + b;
+    b = a - b;
+    a = a - b;
+    printf("Sau khi hoan doi: a = %d, b = %d\n", a, b);
+    return 0;
+}
+
+
+// Bài 47: Tính giá trị tuyệt đối
+#include <stdio.h>
+
+int main() {
+    int n;
+    printf("Nhap mot so nguyen: ");
+    scanf("%d", &n);
+    printf("Gia tri tuyet doi = %d\n", n < 0 ? -n : n);
+    return 0;
+}
+
+
+// Bài 48: Nhập giờ, phút, giây → tính tổng số giây
+#include <stdio.h>
+
+int main() {
+    int h, m, s;
+    printf("Nhap gio, phut, giay: ");
+    scanf("%d %d %d", &h, &m, &s);
+    int tong = h * 3600 + m * 60 + s;
+    printf("Tong giay = %d\n", tong);
+    return 0;
+}
+
+
+// Bài 49: Nhập tổng số giây → tính ra giờ, phút, giây
+#include <stdio.h>
+
+int main() {
+    int total;
+    printf("Nhap tong so giay: ");
+    scanf("%d", &total);
+    int h = total / 3600;
+    int m = (total % 3600) / 60;
+    int s = total % 60;
+    printf("%02d:%02d:%02d\n", h, m, s);
+    return 0;
+}
+
+
+// Bài 50: Kiểm tra số dương, âm hay bằng 0
+#include <stdio.h>
+
+int main() {
+    int n;
+    printf("Nhap mot so: ");
+    scanf("%d", &n);
+    if (n > 0)
+        printf("So duong\n");
+    else if (n < 0)
+        printf("So am\n");
+    else
+        printf("Bang 0\n");
+    return 0;
+}
+
+// Bài 51: Kiểm tra số chẵn hay lẻ
+#include <stdio.h>
+
+int main() {
+    int n;
+    printf("Nhap mot so: ");
+    scanf("%d", &n);
+    if (n % 2 == 0)
+        printf("So chan\n");
+    else
+        printf("So le\n");
+    return 0;
+}
+
+
+// Bài 52: Nhập 3 số nguyên, tìm số lớn nhất
+#include <stdio.h>
+
+int main() {
+    int a, b, c, max;
+    printf("Nhap 3 so: ");
+    scanf("%d %d %d", &a, &b, &c);
+    max = a;
+    if (b > max) max = b;
+    if (c > max) max = c;
+    printf("So lon nhat la: %d\n", max);
+    return 0;
+}
+
+// Bài 53: Kiểm tra 3 cạnh có tạo thành tam giác hay không
+#include <stdio.h>
+
+int main() {
+    int a, b, c;
+    printf("Nhap 3 canh: ");
+    scanf("%d %d %d", &a, &b, &c);
+    if (a + b > c && a + c > b && b + c > a)
+        printf("Day la tam giac\n");
+    else
+        printf("Khong phai tam giac\n");
+    return 0;
+}
+
+
+// Bài 54: Kiểm tra ký tự là nguyên âm hay phụ âm
+#include <stdio.h>
+
+int main() {
+    char ch;
+    printf("Nhap mot ky tu: ");
+    scanf(" %c", &ch);
+    if (ch >= 'A' && ch <= 'Z') ch += 32; // chuyển sang chữ thường
+    if (ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u')
+        printf("Ky tu la nguyen am\n");
+    else
+        printf("Ky tu la phu am\n");
+    return 0;
+}
+
+
+// Bài 55: Kiểm tra năm nhuận
+#include <stdio.h>
+
+int main() {
+    int nam;
+    printf("Nhap nam: ");
+    scanf("%d", &nam);
+    if ((nam % 4 == 0 && nam % 100 != 0) || (nam % 400 == 0))
+        printf("Nam nhuan\n");
+    else
+        printf("Khong phai nam nhuan\n");
+    return 0;
+}
+
+
+// Bài 56: Nhập điểm, in xếp loại theo THPT
+#include <stdio.h>
+
+int main() {
+    float diem;
+    printf("Nhap diem: ");
+    scanf("%f", &diem);
+    if (diem >= 9)
+        printf("Xuat sac\n");
+    else if (diem >= 8)
+        printf("Gioi\n");
+    else if (diem >= 6.5)
+        printf("Kha\n");
+    else if (diem >= 5)
+        printf("Trung binh\n");
+    else
+        printf("Yeu\n");
+    return 0;
+}
+
+
+// Bài 57: Giải phương trình bậc nhất ax + b = 0
+#include <stdio.h>
+
+int main() {
+    float a, b;
+    printf("Nhap a, b: ");
+    scanf("%f %f", &a, &b);
+    if (a == 0) {
+        if (b == 0) printf("Phuong trinh vo so nghiem\n");
+        else printf("Phuong trinh vo nghiem\n");
+    } else {
+        printf("Nghiem x = %.2f\n", -b / a);
+    }
+    return 0;
+}
+
+// Bài 58: Tính tiền điện theo bậc thang (giả sử 3 bậc đơn giản)
+#include <stdio.h>
+
+int main() {
+    int soDien;
+    float tien = 0;
+    printf("Nhap so dien: ");
+    scanf("%d", &soDien);
+    if (soDien <= 50)
+        tien = soDien * 1.678;
+    else if (soDien <= 100)
+        tien = 50 * 1.678 + (soDien - 50) * 1.734;
+    else
+        tien = 50 * 1.678 + 50 * 1.734 + (soDien - 100) * 2.014;
+    printf("Tien dien = %.2f VND\n", tien);
+    return 0;
+}
+
+// Bài 59: Tính tiền taxi theo khoảng cách (giả sử SM Xanh Taxi)
+#include <stdio.h>
+
+int main() {
+    float km, tien;
+    printf("Nhap so km: ");
+    scanf("%f", &km);
+    if (km <= 1)
+        tien = km * 20000;
+    else if (km <= 30)
+        tien = 1 * 20000 + (km - 1) * 15000;
+    else
+        tien = 1 * 20000 + 29 * 15000 + (km - 30) * 12000;
+    printf("Tien taxi: %.0f VND\n", tien);
+    return 0;
+}
+
+
+
+
+
+// Bài 60: Kiểm tra một số có chia hết cho 3 và 5
+#include <stdio.h>
+
+int main() {
+    int n;
+    printf("Nhap mot so: ");
+    scanf("%d", &n);
+    if (n % 3 == 0 && n % 5 == 0)
+        printf("So chia het cho 3 va 5\n");
+    else
+        printf("Khong chia het cho ca 3 va 5\n");
+    return 0;
+}
+
+
+
+// Bài 61: Nhập 3 số nguyên, kiểm tra có tạo thành tam giác vuông không
+#include <stdio.h>
+
+int main() {
+    int a, b, c;
+    printf("Nhap 3 so nguyen: ");
+    scanf("%d %d %d", &a, &b, &c);
+    int a2 = a*a, b2 = b*b, c2 = c*c;
+    if ((a + b > c) && (a + c > b) && (b + c > a)) {
+        if (a2 + b2 == c2 || a2 + c2 == b2 || b2 + c2 == a2)
+            printf("La tam giac vuong\n");
+        else
+            printf("Khong phai tam giac vuong\n");
+    } else {
+        printf("Khong phai tam giac\n");
+    }
+    return 0;
+}
+
+
+// Bài 62: Kiểm tra tuổi có đủ điều kiện thi bằng lái xe không (>= 18)
+#include <stdio.h>
+
+int main() {
+    int tuoi;
+    printf("Nhap tuoi: ");
+    scanf("%d", &tuoi);
+    if (tuoi >= 18)
+        printf("Du tuoi thi bang lai xe\n");
+    else
+        printf("Chua du tuoi thi bang lai xe\n");
+    return 0;
+}
+
+
+// Bài 63: Nhập số từ 1 đến 7, in ra thứ trong tuần
+#include <stdio.h>
+
+int main() {
+    int thu;
+    printf("Nhap so tu 1 den 7: ");
+    scanf("%d", &thu);
+    switch (thu) {
+        case 1: printf("Chu nhat\n"); break;
+        case 2: printf("Thu hai\n"); break;
+        case 3: printf("Thu ba\n"); break;
+        case 4: printf("Thu tu\n"); break;
+        case 5: printf("Thu nam\n"); break;
+        case 6: printf("Thu sau\n"); break;
+        case 7: printf("Thu bay\n"); break;
+        default: printf("Khong hop le\n");
+    }
+    return 0;
+}
+
+
+
+// Bài 64: Nhập tháng, in ra số ngày trong tháng (xét năm nhuận nếu là tháng 2)
+#include <stdio.h>
+
+int main() {
+    int thang, nam;
+    printf("Nhap thang va nam: ");
+    scanf("%d %d", &thang, &nam);
+    int ngay;
+    switch (thang) {
+        case 1: case 3: case 5: case 7:
+        case 8: case 10: case 12:
+            ngay = 31; break;
+        case 4: case 6: case 9: case 11:
+            ngay = 30; break;
+        case 2:
+            if ((nam % 4 == 0 && nam % 100 != 0) || (nam % 400 == 0))
+                ngay = 29;
+            else
+                ngay = 28;
+            break;
+        default:
+            printf("Thang khong hop le\n");
+            return 0;
+    }
+    printf("Thang %d nam %d co %d ngay\n", thang, nam, ngay);
+    return 0;
+}
+
+
+
+
+// Bài 65: Menu lựa chọn phép tính cộng, trừ, nhân, chia 2 số
+#include <stdio.h>
+
+int main() {
+    float a, b;
+    int chon;
+    printf("Nhap hai so: ");
+    scanf("%f %f", &a, &b);
+    printf("1. Cong\n2. Tru\n3. Nhan\n4. Chia\nChon phep tinh: ");
+    scanf("%d", &chon);
+    switch (chon) {
+        case 1: printf("Tong = %.2f\n", a + b); break;
+        case 2: printf("Hieu = %.2f\n", a - b); break;
+        case 3: printf("Tich = %.2f\n", a * b); break;
+        case 4:
+            if (b != 0)
+                printf("Thuong = %.2f\n", a / b);
+            else
+                printf("Loi: chia cho 0\n");
+            break;
+        default: printf("Lua chon khong hop le\n");
+    }
+    return 0;
+}
+
+
+
+// Bài 66: Nhập chữ cái hoa, in ra chữ thường tương ứng
+#include <stdio.h>
+
+int main() {
+    char ch;
+    printf("Nhap chu cai in hoa: ");
+    scanf(" %c", &ch);
+    if (ch >= 'A' && ch <= 'Z') {
+        printf("Chu thuong: %c\n", ch + 32);
+    } else {
+        printf("Khong phai chu cai in hoa\n");
+    }
+    return 0;
+}
+
+
+
+// Bài 67: Chuyển đổi đơn vị: km → m, m → cm, kg → g...
+#include <stdio.h>
+
+int main() {
+    int chon;
+    float val;
+    printf("1. km -> m\n2. m -> cm\n3. kg -> g\nChon chuc nang: ");
+    scanf("%d", &chon);
+    printf("Nhap gia tri: ");
+    scanf("%f", &val);
+    switch (chon) {
+        case 1: printf("%.2f km = %.2f m\n", val, val * 1000); break;
+        case 2: printf("%.2f m = %.2f cm\n", val, val * 100); break;
+        case 3: printf("%.2f kg = %.2f g\n", val, val * 1000); break;
+        default: printf("Lua chon khong hop le\n");
+    }
+    return 0;
+}
+
+
+// Bài 68: Nhập điểm (0–10), dùng switch in ra nhận xét
+#include <stdio.h>
+
+int main() {
+    int diem;
+    printf("Nhap diem (0-10): ");
+    scanf("%d", &diem);
+    switch (diem) {
+        case 10: printf("Xuat sac\n"); break;
+        case 9: case 8: printf("Gioi\n"); break;
+        case 7: case 6: printf("Kha\n"); break;
+        case 5: printf("Trung binh\n"); break;
+        default:
+            if (diem >= 0 && diem < 5)
+                printf("Yeu\n");
+            else
+                printf("Diem khong hop le\n");
+    }
+    return 0;
+}
+
+
+
+// Bài 69: Chọn loại sản phẩm và in ra giá bán theo mã lựa chọn
+#include <stdio.h>
+
+int main() {
+    int loai;
+    printf("1. Sua (10k)\n2. Banh (5k)\n3. Keo (3k)\nChon san pham: ");
+    scanf("%d", &loai);
+    switch (loai) {
+        case 1: printf("Gia ban: 10000 VND\n"); break;
+        case 2: printf("Gia ban: 5000 VND\n"); break;
+        case 3: printf("Gia ban: 3000 VND\n"); break;
+        default: printf("Khong co san pham nay\n");
+    }
+    return 0;
+}
+
+
+
+// Bài 70: Tính tiền lương theo cấp bậc chọn từ menu (A, B, C...)
+#include <stdio.h>
+
+int main() {
+    char cap;
+    printf("Nhap cap bac (A/B/C): ");
+    scanf(" %c", &cap);
+    switch (cap) {
+        case 'A': case 'a': printf("Luong: 10,000,000 VND\n"); break;
+        case 'B': case 'b': printf("Luong: 8,000,000 VND\n"); break;
+        case 'C': case 'c': printf("Luong: 6,000,000 VND\n"); break;
+        default: printf("Cap bac khong hop le\n");
+    }
+    return 0;
+}
+
+
+
+
+// Bài 71: In ra dãy số từ 1 đến n
+#include <stdio.h>
+
+int main() {
+    int n;
+    printf("Nhap n: ");
+    scanf("%d", &n);
+    for (int i = 1; i <= n; i++)
+        printf("%d ", i);
+    return 0;
+}
+
+// Bài 72: In ra các số chẵn từ 1 đến n
+#include <stdio.h>
+
+int main() {
+    int n;
+    printf("Nhap n: ");
+    scanf("%d", &n);
+    for (int i = 2; i <= n; i += 2)
+        printf("%d ", i);
+    return 0;
+}
+
+// Bài 73: In ra các số lẻ từ n đến 1 (ngược lại)
+#include <stdio.h>
+
+int main() {
+    int n;
+    printf("Nhap n: ");
+    scanf("%d", &n);
+    for (int i = n; i >= 1; i--)
+        if (i % 2 != 0)
+            printf("%d ", i);
+    return 0;
+}
+
+// Bài 74: Tính tổng các số từ 1 đến n
+#include <stdio.h>
+
+int main() {
+    int n, tong = 0;
+    printf("Nhap n: ");
+    scanf("%d", &n);
+    for (int i = 1; i <= n; i++)
+        tong += i;
+    printf("Tong = %d\n", tong);
+    return 0;
+}
+
+// Bài 75: Tính tổng các số chẵn từ 1 đến n
+#include <stdio.h>
+
+int main() {
+    int n, tong = 0;
+    printf("Nhap n: ");
+    scanf("%d", &n);
+    for (int i = 2; i <= n; i += 2)
+        tong += i;
+    printf("Tong chan = %d\n", tong);
+    return 0;
+}
+
+// Bài 76: Tính tích các số từ 1 đến n (sử dụng vòng lặp)
+#include <stdio.h>
+
+int main() {
+    int n;
+    long long tich = 1;
+    printf("Nhap n: ");
+    scanf("%d", &n);
+    for (int i = 1; i <= n; i++)
+        tich *= i;
+    printf("Tich = %lld\n", tich);
+    return 0;
+}
+
+// Bài 77: Tính tổng các số chia hết cho 3 và 5 trong các số từ 1 đến n
+#include <stdio.h>
+
+int main() {
+    int n, tong = 0;
+    printf("Nhap n: ");
+    scanf("%d", &n);
+    for (int i = 1; i <= n; i++)
+        if (i % 3 == 0 && i % 5 == 0)
+            tong += i;
+    printf("Tong = %d\n", tong);
+    return 0;
+}
+
+// Bài 78: In bảng cửu chương của một số n
+#include <stdio.h>
+
+int main() {
+    int n;
+    printf("Nhap n: ");
+    scanf("%d", &n);
+    for (int i = 1; i <= 10; i++)
+        printf("%d x %d = %d\n", n, i, n*i);
+    return 0;
+}
+
+// Bài 79: In bảng các cửu chương từ bảng cửu chương 2 đến 9
+#include <stdio.h>
+
+int main() {
+    for (int i = 2; i <= 9; i++) {
+        printf("\nBang cuu chuong %d:\n", i);
+        for (int j = 1; j <= 10; j++)
+            printf("%d x %d = %d\n", i, j, i*j);
+    }
+    return 0;
+}
+
+// Bài 80: Đếm có bao nhiêu số chia hết cho 7 trong khoảng 1 đến n
+#include <stdio.h>
+
+int main() {
+    int n, dem = 0;
+    printf("Nhap n: ");
+    scanf("%d", &n);
+    for (int i = 1; i <= n; i++)
+        if (i % 7 == 0)
+            dem++;
+    printf("Co %d so chia het cho 7\n", dem);
+    return 0;
+}
+
+
+// Bài 81: Kiểm tra một số có phải là số nguyên tố
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+    int n, i, isPrime = 1;
+    printf("Nhap so nguyen: ");
+    scanf("%d", &n);
+    if (n < 2) isPrime = 0;
+    for (i = 2; i <= sqrt(n); i++)
+        if (n % i == 0) {
+            isPrime = 0;
+            break;
+        }
+    if (isPrime)
+        printf("%d la so nguyen to\n", n);
+    else
+        printf("%d khong la so nguyen to\n", n);
+    return 0;
+}
+
+// Bài 82: In ra các số nguyên tố từ 1 đến n
+#include <stdio.h>
+#include <math.h>
+
+int isPrime(int n) {
+    if (n < 2) return 0;
+    for (int i = 2; i <= sqrt(n); i++)
+        if (n % i == 0)
+            return 0;
+    return 1;
+}
+
+int main() {
+    int n;
+    printf("Nhap n: ");
+    scanf("%d", &n);
+    for (int i = 1; i <= n; i++)
+        if (isPrime(i))
+            printf("%d ", i);
+    return 0;
+}
+
+// Bài 83: Tính tổng các chữ số của một số nguyên
+#include <stdio.h>
+
+int main() {
+    int n, tong = 0;
+    printf("Nhap so nguyen: ");
+    scanf("%d", &n);
+    while (n != 0) {
+        tong += n % 10;
+        n /= 10;
+    }
+    printf("Tong chu so = %d\n", tong);
+    return 0;
+}
+
+// Bài 84: Tính tổng các chữ số là số nguyên tố của một số nguyên
+#include <stdio.h>
+
+int isPrimeDigit(int n) {
+    return (n == 2 || n == 3 || n == 5 || n == 7);
+}
+
+int main() {
+    int n, tong = 0;
+    printf("Nhap so nguyen: ");
+    scanf("%d", &n);
+    while (n != 0) {
+        int d = n % 10;
+        if (isPrimeDigit(d)) tong += d;
+        n /= 10;
+    }
+    printf("Tong chu so nguyen to = %d\n", tong);
+    return 0;
+}
+
+// Bài 85: Đảo ngược một số nguyên (ví dụ 123 -> 321)
+#include <stdio.h>
+
+int main() {
+    int n, dao = 0;
+    printf("Nhap so: ");
+    scanf("%d", &n);
+    while (n != 0) {
+        dao = dao * 10 + n % 10;
+        n /= 10;
+    }
+    printf("So dao nguoc: %d\n", dao);
+    return 0;
+}
+
+// Bài 86: Tính tổng của dãy: S = 1 + 1/2 + 1/3 + ... + 1/n
+#include <stdio.h>
+
+int main() {
+    int n;
+    double S = 0;
+    printf("Nhap n: ");
+    scanf("%d", &n);
+    for (int i = 1; i <= n; i++)
+        S += 1.0 / i;
+    printf("Tong S = %.5lf\n", S);
+    return 0;
+}
+
+// Bài 87: In ra tam giác sao - tam giác vuông góc vuông trên trái
+#include <stdio.h>
+
+int main() {
+    int n;
+    printf("Nhap chieu cao tam giac: ");
+    scanf("%d", &n);
+    for (int i = n; i >= 1; i--) {
+        for (int j = 1; j <= i; j++)
+            printf("* ");
+        printf("\n");
+    }
+    return 0;
+}
+
+// Bài 88: In ra dãy Fibonacci với n phần tử đầu tiên
+#include <stdio.h>
+
+int main() {
+    int n, a = 0, b = 1;
+    printf("Nhap so phan tu: ");
+    scanf("%d", &n);
+    for (int i = 1; i <= n; i++) {
+        printf("%d ", a);
+        int next = a + b;
+        a = b;
+        b = next;
+    }
+    return 0;
+}
+
+// Bài 89: Kiểm tra số hoàn hảo
+#include <stdio.h>
+
+int main() {
+    int n, sum = 0;
+    printf("Nhap so nguyen: ");
+    scanf("%d", &n);
+    for (int i = 1; i < n; i++)
+        if (n % i == 0)
+            sum += i;
+    if (sum == n)
+        printf("%d la so hoan hao\n", n);
+    else
+        printf("%d khong la so hoan hao\n", n);
+    return 0;
+}
+
+// Bài 90: In ra bảng số nhị phân từ 1 đến n
+#include <stdio.h>
+
+void printBinary(int n) {
+    if (n == 0) return;
+    printBinary(n / 2);
+    printf("%d", n % 2);
+}
+
+int main() {
+    int n;
+    printf("Nhap n: ");
+    scanf("%d", &n);
+    for (int i = 1; i <= n; i++) {
+        printBinary(i);
+        printf("\n");
+    }
+    return 0;
+}
+
+
+
+// Bài 91: Kiểm tra số chính phương
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+    int n;
+    printf("Nhap so: ");
+    scanf("%d", &n);
+    int can = sqrt(n);
+    if (can * can == n)
+        printf("%d la so chinh phuong\n", n);
+    else
+        printf("%d khong la so chinh phuong\n", n);
+    return 0;
+}
+
+// Bài 92: Tìm ước chung lớn nhất của hai số
+#include <stdio.h>
+
+int UCLN(int a, int b) {
+    while (b != 0) {
+        int r = a % b;
+        a = b;
+        b = r;
+    }
+    return a;
+}
+
+int main() {
+    int a, b;
+    printf("Nhap hai so: ");
+    scanf("%d%d", &a, &b);
+    printf("UCLN = %d\n", UCLN(a, b));
+    return 0;
+}
+
+// Bài 93: Tìm bội chung nhỏ nhất của hai số
+#include <stdio.h>
+
+int UCLN(int a, int b) {
+    while (b != 0) {
+        int r = a % b;
+        a = b;
+        b = r;
+    }
+    return a;
+}
+
+int main() {
+    int a, b;
+    printf("Nhap hai so: ");
+    scanf("%d%d", &a, &b);
+    int ucln = UCLN(a, b);
+    int bcnn = (a * b) / ucln;
+    printf("BCNN = %d\n", bcnn);
+    return 0;
+}
+
+// Bài 94: In tam giác vuông góc dưới trái
+#include <stdio.h>
+
+int main() {
+    int n;
+    printf("Nhap chieu cao: ");
+    scanf("%d", &n);
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= i; j++)
+            printf("* ");
+        printf("\n");
+    }
+    return 0;
+}
+
+// Bài 95: In tam giác vuông góc trên phải
+#include <stdio.h>
+
+int main() {
+    int n;
+    printf("Nhap chieu cao: ");
+    scanf("%d", &n);
+    for (int i = n; i >= 1; i--) {
+        for (int j = 1; j < n - i + 1; j++)
+            printf("  ");
+        for (int j = 1; j <= i; j++)
+            printf("* ");
+        printf("\n");
+    }
+    return 0;
+}
+
+// Bài 96: In tam giác cân
+#include <stdio.h>
+
+int main() {
+    int n;
+    printf("Nhap chieu cao: ");
+    scanf("%d", &n);
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= n - i; j++)
+            printf(" ");
+        for (int j = 1; j <= 2 * i - 1; j++)
+            printf("*");
+        printf("\n");
+    }
+    return 0;
+}
+
+// Bài 97: Kiểm tra chuỗi Palindrome (đảo ngược vẫn giống nhau)
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char s[100];
+    printf("Nhap chuoi: ");
+    gets(s);
+    int l = 0, r = strlen(s) - 1;
+    int isPalin = 1;
+    while (l < r) {
+        if (s[l] != s[r]) {
+            isPalin = 0;
+            break;
+        }
+        l++;
+        r--;
+    }
+    if (isPalin)
+        printf("Chuoi Palindrome\n");
+    else
+        printf("Khong phai Palindrome\n");
+    return 0;
+}
+
+// Bài 98: Đếm số lần xuất hiện của ký tự trong chuỗi
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char s[100], c;
+    printf("Nhap chuoi: ");
+    gets(s);
+    printf("Nhap ky tu can dem: ");
+    scanf("%c", &c);
+    int dem = 0;
+    for (int i = 0; s[i]; i++)
+        if (s[i] == c)
+            dem++;
+    printf("Ky tu '%c' xuat hien %d lan\n", c, dem);
+    return 0;
+}
+
+// Bài 99: In các ký tự không trùng nhau trong chuỗi
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char s[100];
+    printf("Nhap chuoi: ");
+    gets(s);
+    int freq[256] = {0};
+    for (int i = 0; s[i]; i++)
+        freq[(unsigned char)s[i]]++;
+    printf("Cac ky tu khong trung lap: ");
+    for (int i = 0; s[i]; i++)
+        if (freq[(unsigned char)s[i]] == 1)
+            printf("%c ", s[i]);
+    return 0;
+}
+
+// Bài 100: Đảo ngược chuỗi
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char s[100];
+    printf("Nhap chuoi: ");
+    gets(s);
+    int len = strlen(s);
+    for (int i = len - 1; i >= 0; i--)
+        printf("%c", s[i]);
+    printf("\n");
+    return 0;
+}
+
+
+
+
+
+
