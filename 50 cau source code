@@ -1,0 +1,4329 @@
+#include <iostream>
+#include <limits>
+
+// TÍNH TỔNG 1 ĐẾN N
+
+using namespace std;
+
+int getInput(const int max)
+{
+  string input;
+  int value;
+  while (true)
+  {
+    if (getline(cin, input))
+    {
+      if (input.empty())
+      {
+        continue;
+      }
+
+      value = stoll(input);
+
+      if (value > 0 && (max < 0 || value <= max))
+      {
+        return value;
+      }
+    }
+  }
+}
+
+long long getInput(const long long max)
+{
+  string input;
+  long long value;
+  while (true)
+  {
+    if (getline(cin, input))
+    {
+      if (input.empty())
+      {
+        continue;
+      }
+
+      value = stoll(input);
+
+      if (value > 0 && (max < 0 || value <= max))
+      {
+        return value;
+      }
+    }
+  }
+}
+
+int main()
+{
+  int N;
+
+  int soBoTest = getInput(10);
+
+  int i = 1;
+  while (i <= soBoTest)
+  {
+    cin >> N;
+
+    if (cin.fail())
+    {
+      cin.clear();
+      cin.ignore(numeric_limits<streamsize>::max(), '\n');
+      continue;
+    }
+
+    if (N <= 0)
+    {
+      continue;
+    }
+
+    if (N >= 1000000000)
+    {
+      continue;
+    }
+
+    long long S = 0;
+    for (int i = 1; i <= N; ++i)
+    {
+      S += i;
+    }
+    cout << S << endl;
+
+    i++;
+  }
+
+  return 0;
+}
+
+
+
+#include <iostream>
+#include <cctype>
+using namespace std;
+
+// CHỮ HOA – CHỮ THƯỜNG
+
+int getInput(const int max);
+
+int main()
+{
+  int n = getInput(100);
+
+  int i = 0;
+
+  while (i < n)
+  {
+    string value;
+    getline(cin, value);
+
+    if (value.empty())
+    {
+      continue;
+    }
+
+    char firstChar = value[0];
+
+    if (!isalpha(firstChar))
+    {
+      continue;
+    }
+
+    if (isupper(firstChar))
+    {
+      cout << (char)tolower(firstChar) << endl;
+    }
+    else
+    {
+      cout << (char)toupper(firstChar) << endl;
+    }
+
+    i++;
+  }
+
+  return 0;
+}
+
+int getInput(const int max)
+{
+  string input;
+  int value;
+  while (true)
+  {
+    if (getline(cin, input))
+    {
+      if (input.empty())
+      {
+        continue;
+      }
+
+      value = stoll(input);
+
+      if (value > 0 && (max < 0 || value <= max))
+      {
+        return value;
+      }
+      else
+      {
+        continue;
+      }
+    }
+  }
+}
+
+
+
+#include <iostream>
+using namespace std;
+
+// TÍNH TỔNG GIAI THỪA
+
+int getInput(const int max);
+
+int main()
+{
+  int N = getInput(20);
+
+  long long S = 0;
+  long long gt = 1;
+
+  for (int i = 1; i <= N; i++)
+  {
+    gt = gt * i;
+    S = S + gt;
+  }
+  cout << S << endl;
+
+  return 0;
+}
+
+int getInput(const int max)
+{
+  string input;
+  int value;
+  while (true)
+  {
+    if (getline(cin, input))
+    {
+      if (input.empty())
+      {
+        continue;
+      }
+
+      try
+      {
+        value = stoll(input);
+
+        if (value > 0 && (max < 0 || value <= max))
+        {
+          return value;
+        }
+      }
+      catch (const exception &)
+      {
+        continue;
+      }
+    }
+  }
+}
+
+long long getInput(const long long max, const string label)
+{
+  string input;
+  long long value;
+  while (true)
+  {
+    cout << label << ": ";
+    if (getline(cin, input))
+    {
+      if (input.empty())
+      {
+        cout << "Vui long nhap so nguyen duong hop le!" << endl;
+        continue;
+      }
+
+      try
+      {
+        value = stoll(input);
+
+        if (value > 0 && (max < 0 || value <= max))
+        {
+          return value;
+        }
+        cout << "So luong khong hop le! Vui long nhap tu 1 den " << max << endl;
+      }
+      catch (const exception &)
+      {
+        cout << "Vui long nhap so nguyen hop le!" << endl;
+      }
+    }
+  }
+}
+
+
+#include <iostream>
+using namespace std;
+
+// CÂN BẰNG CHẴN LẺ
+
+bool isEvenNumber(int value);
+
+int countEven(int value);
+
+int countOdd(int value);
+
+int getInput(const int max, const string label);
+
+long long getInput(const long long max, const string label);
+
+int main()
+{
+  int N;
+
+  while (true)
+  {
+    N = getInput(6);
+
+    if (!isEvenNumber(N))
+    {
+      continue;
+    }
+
+    break;
+  }
+
+  int startNum = 1;
+
+  for (int i = 1; i < N; i++)
+  {
+    startNum *= 10;
+  }
+
+  const int MAX_NUM = startNum * 10 - 1;
+
+  const int REQUIRED_NUM = N / 2;
+
+  int numOnLine = 1;
+
+  for (int i = startNum; i < MAX_NUM; i++)
+  {
+    int evenCount = countEven(i);
+    int oddCount = countOdd(i);
+
+    if (evenCount == oddCount)
+    {
+      cout << i << " ";
+      if (numOnLine < 10)
+      {
+        numOnLine++;
+      }
+      else
+      {
+        numOnLine = 1;
+        cout << "\n";
+      }
+    }
+  }
+
+  return 0;
+}
+
+bool isEvenNumber(int value)
+{
+  return value % 2 == 0;
+}
+
+int countEven(int value)
+{
+  int number = value;
+  int count = 0;
+
+  while (number > 0)
+  {
+    int digit = number % 10;
+
+    if (isEvenNumber(digit))
+    {
+      count++;
+    }
+
+    number = number / 10;
+  }
+
+  return count;
+}
+
+int countOdd(int value)
+{
+  int number = value;
+  int count = 0;
+
+  while (number > 0)
+  {
+    int digit = number % 10;
+
+    if (!isEvenNumber(digit))
+    {
+      count++;
+    }
+
+    number = number / 10;
+  }
+
+  return count;
+}
+
+int getInput(const int max)
+{
+  string input;
+  int value;
+  while (true)
+  {
+    if (getline(cin, input))
+    {
+      if (input.empty())
+      {
+        continue;
+      }
+
+      try
+      {
+        value = stoll(input);
+
+        if (value > 0 && (max < 0 || value <= max))
+        {
+          return value;
+        }
+      }
+      catch (const exception &)
+      {
+
+        continue;
+      }
+    }
+  }
+}
+
+
+
+
+
+
+#include <iostream>
+using namespace std;
+
+// SỐ MAY MẮN
+
+int getInput(const int max);
+
+bool isValid(long long number)
+{
+  if (number < 10)
+  {
+    return false;
+  }
+
+  int lastTwoDigit = number % 100;
+
+  return lastTwoDigit == 86;
+}
+
+int main()
+{
+  const int MAX_NUMS = 20;
+  long long listNum[MAX_NUMS];
+  int sizeOfValue = getInput(MAX_NUMS);
+
+  for (int i = 0; i < sizeOfValue; i++)
+  {
+    listNum[i] = getInput(999999999);
+  }
+
+  for (int i = 0; i < sizeOfValue; i++)
+  {
+    bool isEndWith86 = isValid(listNum[i]);
+    cout << (isEndWith86 ? 1 : 0) << endl;
+  }
+
+  return 0;
+}
+
+int getInput(const int max)
+{
+  string input;
+  int value;
+  while (true)
+  {
+    if (getline(cin, input))
+    {
+      if (input.empty())
+      {
+        continue;
+      }
+
+      try
+      {
+        value = stoll(input);
+
+        if (value > 0 && (max < 0 || value <= max))
+        {
+          return value;
+        }
+
+        continue;
+      }
+      catch (const exception &)
+      {
+        continue;
+      }
+    }
+  }
+}
+
+
+
+
+
+#include <string>
+#include <iostream>
+
+// LIỆT KÊ SỐ NGUYÊN TỐ - 1
+
+using namespace std;
+
+int getInput(const int max);
+
+int main()
+{
+  int startNum = getInput(1000000);
+  int endNum = getInput(1000000);
+
+  int numOnLine = 1;
+  for (int i = startNum; i < endNum; i++)
+  {
+    if (i == 0)
+    {
+      continue;
+    }
+
+    if (i == 2 || i == 3)
+    {
+      cout << i << " ";
+
+      if (numOnLine < 10)
+      {
+        numOnLine++;
+      }
+      else
+      {
+        numOnLine = 1;
+        cout << "\n";
+      }
+    }
+
+    if (i % 2 != 0 && i % 3 != 0)
+    {
+      cout << i << " ";
+
+      if (numOnLine < 10)
+      {
+        numOnLine++;
+      }
+      else
+      {
+        numOnLine = 1;
+        cout << "\n";
+      }
+    }
+  }
+
+  return 0;
+}
+
+int getInput(const int max)
+{
+  string input;
+  int value;
+  while (true)
+  {
+    if (getline(cin, input))
+    {
+      if (input.empty())
+      {
+        continue;
+      }
+
+      try
+      {
+        value = stoll(input);
+
+        if (value > 0 && (max < 0 || value <= max))
+        {
+          return value;
+        }
+        continue;
+      }
+      catch (const exception &)
+      {
+        continue;
+      }
+    }
+  }
+}
+
+
+
+
+#include <string>
+#include <iostream>
+#include <vector>
+
+// ƯỚC SỐ NGUYÊN TỐ
+
+using namespace std;
+
+int getInput(const int max, const int min);
+
+long long getInput(const long long max, const long long min);
+
+int main()
+{
+  int sizeOfTest = getInput(100, 1);
+
+  vector<long long> nums(sizeOfTest);
+
+  for (int i = 0; i < sizeOfTest; i++)
+  {
+    long long inputValue = getInput(10000000000LL, 2LL);
+    nums[i] = inputValue;
+  }
+
+  for (int i = 0; i < sizeOfTest; i++)
+  {
+    bool isFirst = true;
+    long long n = nums[i];
+
+    while (n % 2 == 0)
+    {
+      if (!isFirst)
+        cout << " ";
+      cout << 2;
+      isFirst = false;
+      n /= 2;
+    }
+
+    for (long long j = 3; j * j <= n; j += 2)
+    {
+      while (n % j == 0)
+      {
+        if (!isFirst)
+          cout << " ";
+        cout << j;
+        isFirst = false;
+        n /= j;
+      }
+    }
+
+    if (n > 2)
+    {
+      if (!isFirst)
+        cout << " ";
+      cout << n;
+    }
+
+    cout << endl;
+  }
+
+  return 0;
+}
+
+int getInput(const int max, const int min)
+{
+  string input;
+  int value;
+  while (true)
+  {
+    if (getline(cin, input))
+    {
+      if (input.empty())
+      {
+        continue;
+      }
+
+      try
+      {
+        value = stoll(input);
+
+        if (value > 0 && (max < 0 || value <= max))
+        {
+          return value;
+        }
+        continue;
+      }
+      catch (const exception &)
+      {
+        continue;
+      }
+    }
+  }
+}
+
+long long getInput(const long long max, const long long min)
+{
+  string input;
+  long long value;
+  while (true)
+  {
+    if (getline(cin, input))
+    {
+      if (input.empty())
+      {
+        continue;
+      }
+
+      try
+      {
+        value = stoll(input);
+
+        if (value > 0 && (max < 0 || value <= max))
+        {
+          return value;
+        }
+        continue;
+      }
+      catch (const exception &)
+      {
+        continue;
+      }
+    }
+  }
+}
+
+
+
+
+#include <string>
+#include <iostream>
+#include <vector>
+
+// LIỆT KÊ SỐ CÓ BA ƯỚC SỐ
+
+using namespace std;
+
+int getInput(const int max);
+
+long long getInput(const long long max);
+
+int main()
+{
+  int sizeOfTest = getInput(100);
+
+  vector<long long> nums(sizeOfTest);
+
+  for (int i = 0; i < sizeOfTest; i++)
+  {
+    int inputValue = getInput(1000000);
+    nums[i] = inputValue;
+  }
+
+  for (int i = 0; i < sizeOfTest; i++)
+  {
+    for (int j = 2; j < nums[i]; j++)
+    {
+      if (j == 2 || j == 3)
+      {
+        int squareValue = j * j;
+        if (squareValue < nums[i])
+        {
+          cout << " " << squareValue;
+        }
+      }
+
+      if (j % 2 != 0 && j % 3 != 0)
+      {
+        int squareValue = j * j;
+        if (squareValue < nums[i])
+        {
+          cout << " " << squareValue;
+        }
+      }
+    }
+
+    cout << endl;
+  }
+
+  return 0;
+}
+
+int getInput(const int max)
+{
+  string input;
+  int value;
+  while (true)
+  {
+    if (getline(cin, input))
+    {
+      if (input.empty())
+      {
+        continue;
+      }
+
+      try
+      {
+        value = stoll(input);
+
+        if (value > 0 && (max < 0 || value <= max))
+        {
+          return value;
+        }
+        continue;
+      }
+      catch (const exception &)
+      {
+        continue;
+      }
+    }
+  }
+}
+
+long long getInput(const long long max)
+{
+  string input;
+  long long value;
+  while (true)
+  {
+    if (getline(cin, input))
+    {
+      if (input.empty())
+      {
+        continue;
+      }
+
+      try
+      {
+        value = stoll(input);
+
+        if (value > 0 && (max < 0 || value <= max))
+        {
+          return value;
+        }
+        continue;
+      }
+      catch (const exception &)
+      {
+        continue;
+      }
+    }
+  }
+}
+
+
+
+#include <string>
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <climits>
+#include <sstream>
+
+// CHÊNH LỆCH NHỎ NHẤT
+
+using namespace std;
+
+vector<int> getInput(const int max, const int count, const int min = 1);
+
+int getInput(const int max);
+
+long long getInput(const long long max);
+
+int main()
+{
+  int sizeOfTest = getInput(10);
+
+  vector<vector<int>> testList;
+
+  for (int i = 0; i < sizeOfTest; i++)
+  {
+    int sizeOfNum = getInput(100000);
+    if (sizeOfNum < 2)
+    {
+      continue;
+    }
+    testList.push_back(getInput(1000000000, sizeOfNum));
+  }
+
+  for (const auto &temp : testList)
+  {
+    if (temp.size() < 2)
+    {
+      continue;
+    }
+
+    vector<int> sorted = temp;
+    sort(sorted.begin(), sorted.end());
+
+    int minDiff = INT_MAX;
+    for (int j = 0; j < sorted.size() - 1; j++)
+    {
+      int diff = sorted[j + 1] - sorted[j];
+      if (diff < minDiff)
+      {
+        minDiff = diff;
+      }
+    }
+
+    cout << minDiff << endl;
+  }
+
+  return 0;
+}
+
+int getInput(const int max)
+{
+  string input;
+  int value;
+  while (true)
+  {
+    if (getline(cin, input))
+    {
+      if (input.empty())
+      {
+        continue;
+      }
+
+      try
+      {
+        value = stoll(input);
+
+        if (value > 0 && (max < 0 || value <= max))
+        {
+          return value;
+        }
+        continue;
+      }
+      catch (const exception &)
+      {
+        continue;
+      }
+    }
+  }
+}
+
+long long getInput(const long long max)
+{
+  string input;
+  long long value;
+  while (true)
+  {
+    if (getline(cin, input))
+    {
+      if (input.empty())
+      {
+        continue;
+      }
+
+      try
+      {
+        value = stoll(input);
+
+        if (value > 0 && (max < 0 || value <= max))
+        {
+          return value;
+        }
+        continue;
+      }
+      catch (const exception &)
+      {
+        continue;
+      }
+    }
+  }
+}
+
+vector<int> getInput(const int max, const int count, const int min)
+{
+  string input;
+  vector<int> values;
+
+  while (true)
+  {
+    if (getline(cin, input))
+    {
+      if (input.empty())
+      {
+        continue;
+      }
+
+      istringstream iss(input);
+      int value;
+      bool valid = true;
+      values.clear();
+
+      while (iss >> value)
+      {
+        if (value >= min && (max < 0 || value <= max))
+        {
+          values.push_back(value);
+        }
+        else
+        {
+          valid = false;
+          break;
+        }
+      }
+
+      if (valid && values.size() == count)
+      {
+        return values;
+      }
+      else if (values.size() != count)
+      {
+        continue;
+      }
+    }
+  }
+}
+
+
+
+#include <string>
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <climits>
+#include <sstream>
+
+// SỐ NHỎ NHẤT CHƯA XUẤT HIỆN
+
+using namespace std;
+
+vector<int> getInput(const int max, const int count, const int min = 1);
+
+int getInput(const int max);
+
+long long getInput(const long long max);
+
+int main()
+{
+  int sizeOfTest = getInput(10);
+
+  vector<vector<int>> testList(sizeOfTest);
+
+  for (int i = 0; i < sizeOfTest; i++)
+  {
+    int sizeOfNum = getInput(1000000);
+    if (sizeOfNum < 2)
+    {
+      continue;
+    }
+    testList.push_back(getInput(1000000, sizeOfNum, -1000000));
+  }
+
+  for (const auto &temp : testList)
+  {
+    if (temp.size() < 2)
+    {
+      continue;
+    }
+
+    vector<int> sorted = temp;
+    sort(sorted.begin(), sorted.end());
+
+    int minMissing = INT_MAX;
+
+    for (int j = 0; j < sorted.size(); j++)
+    {
+      if (minMissing == sorted[j])
+      {
+        minMissing += 1;
+      }
+
+      if (sorted[j] < minMissing && sorted[j] > 0)
+      {
+        minMissing = sorted[j] + 1;
+      }
+    }
+
+    cout << minMissing << endl;
+  }
+
+  return 0;
+}
+
+int getInput(const int max)
+{
+  string input;
+  int value;
+  int min = 1;
+  while (true)
+  {
+    if (getline(cin, input))
+    {
+      if (input.empty())
+      {
+        continue;
+      }
+
+      try
+      {
+        value = stoll(input);
+
+        if (value >= min && (max < 0 || value <= max))
+        {
+          return value;
+        }
+        continue;
+      }
+      catch (const exception &)
+      {
+        continue;
+      }
+    }
+  }
+}
+
+long long getInput(const long long max)
+{
+  string input;
+  long long value;
+  while (true)
+  {
+    if (getline(cin, input))
+    {
+      if (input.empty())
+      {
+        continue;
+      }
+
+      try
+      {
+        value = stoll(input);
+
+        if (value > 0 && (max < 0 || value <= max))
+        {
+          return value;
+        }
+        continue;
+      }
+      catch (const exception &)
+      {
+        continue;
+      }
+    }
+  }
+}
+
+vector<int> getInput(const int max, const int count, const int min)
+{
+  string input;
+  vector<int> values;
+
+  while (true)
+  {
+    if (getline(cin, input))
+    {
+      if (input.empty())
+      {
+        continue;
+      }
+
+      istringstream iss(input);
+      int value;
+      bool valid = true;
+      values.clear();
+
+      while (iss >> value)
+      {
+        if (value >= min && (max < 0 || value <= max))
+        {
+          values.push_back(value);
+        }
+        else
+        {
+          valid = false;
+          break;
+        }
+      }
+
+      if (valid && values.size() == count)
+      {
+        return values;
+      }
+      else if (values.size() != count)
+      {
+        continue;
+      }
+    }
+  }
+}
+
+
+
+#include <string>
+#include <iostream>
+#include <vector>
+#include <sstream>
+
+// QUAY VÒNG DÃY SỐ 1
+
+using namespace std;
+
+vector<int> getInput(const int max, const int count, const int min = 1);
+
+int getInput(const int max);
+
+int main()
+{
+  int sizeOfTest = getInput(10);
+
+  vector<vector<int>> config;
+  vector<vector<int>> testList;
+
+  for (int i = 0; i < sizeOfTest; i++)
+  {
+    while (true)
+    {
+      vector<int> currentConfig = getInput(1000000, 2, 1);
+
+      if (currentConfig[0] > currentConfig[1])
+      {
+        config.push_back(currentConfig);
+        break;
+      }
+    }
+    testList.push_back(getInput(1000000, config[i][0], -1000000));
+  }
+
+  for (int i = 0; i < sizeOfTest; i++)
+  {
+    if (i >= testList.size() || i >= config.size())
+    {
+      continue;
+    }
+
+    vector<int> &temp = testList[i];
+    int d = config[i][1];
+
+    if (d >= temp.size())
+    {
+      continue;
+    }
+
+    vector<int> result;
+    result.insert(result.end(), temp.begin() + d, temp.end());
+    result.insert(result.end(), temp.begin(), temp.begin() + d);
+
+    for (int j = 0; j < result.size(); j++)
+    {
+      cout << result[j];
+      if (j < result.size() - 1)
+      {
+        cout << " ";
+      }
+    }
+    cout << endl;
+  }
+  return 0;
+}
+
+int getInput(const int max)
+{
+  string input;
+  int value;
+  int min = 1;
+  while (true)
+  {
+    if (getline(cin, input))
+    {
+      if (input.empty())
+      {
+        continue;
+      }
+
+      try
+      {
+        value = stoll(input);
+
+        if (value >= min && (max < 0 || value <= max))
+        {
+          return value;
+        }
+        continue;
+      }
+      catch (const exception &)
+      {
+        continue;
+      }
+    }
+  }
+}
+
+vector<int> getInput(const int max, const int count, const int min)
+{
+  string input;
+  vector<int> values;
+
+  while (true)
+  {
+
+    if (getline(cin, input))
+    {
+      if (input.empty())
+      {
+        continue;
+      }
+
+      istringstream iss(input);
+      int value;
+      bool valid = true;
+      values.clear();
+
+      while (iss >> value)
+      {
+        if (value >= min && (max < 0 || value <= max))
+        {
+          values.push_back(value);
+        }
+        else
+        {
+          valid = false;
+          break;
+        }
+      }
+
+      if (valid && values.size() == count)
+      {
+        return values;
+      }
+      else if (values.size() != count)
+      {
+        continue;
+      }
+    }
+  }
+}
+
+
+
+
+#include <iostream>
+#include <vector>
+
+// BIẾN ĐỔI NHỊ PHÂN
+
+using namespace std;
+
+void transformMatrix(vector<vector<int>> &matrix, int n, int m)
+{
+  vector<bool> row_has_one(n, false);
+  vector<bool> col_has_one(m, false);
+
+  for (int i = 0; i < n; i++)
+  {
+    for (int j = 0; j < m; j++)
+    {
+      if (matrix[i][j] == 1)
+      {
+        row_has_one[i] = true;
+        col_has_one[j] = true;
+      }
+    }
+  }
+
+  for (int i = 0; i < n; i++)
+  {
+    for (int j = 0; j < m; j++)
+    {
+      if (row_has_one[i] || col_has_one[j])
+      {
+        matrix[i][j] = 1;
+      }
+    }
+  }
+}
+
+void printMatrix(const vector<vector<int>> &matrix, int n, int m)
+{
+  for (int i = 0; i < n; i++)
+  {
+    for (int j = 0; j < m; j++)
+    {
+      cout << matrix[i][j];
+      if (j < m - 1)
+        cout << " ";
+    }
+    cout << endl;
+  }
+}
+
+int main()
+{
+  int t;
+  cin >> t;
+
+  vector<vector<vector<vector<int>>>> all_matrices(t);
+  vector<pair<int, int>> dimensions(t);
+
+  for (int test = 0; test < t; test++)
+  {
+    int n, m;
+    cin >> n >> m;
+    dimensions[test] = {n, m};
+
+    vector<vector<int>> matrix(n, vector<int>(m));
+    for (int i = 0; i < n; i++)
+    {
+      for (int j = 0; j < m; j++)
+      {
+        cin >> matrix[i][j];
+      }
+    }
+
+    all_matrices[test].push_back(matrix);
+    transformMatrix(matrix, n, m);
+    all_matrices[test].push_back(matrix);
+  }
+
+  for (int test = 0; test < t; test++)
+  {
+    int n = dimensions[test].first;
+    int m = dimensions[test].second;
+    printMatrix(all_matrices[test][1], n, m);
+  }
+
+  return 0;
+}
+
+
+
+
+#include <iostream>
+#include <iomanip>
+using namespace std;
+
+// BIÊN CỦA MA TRẬN
+
+void printBorderElements(int matrix[][100], int n)
+{
+  for (int i = 0; i < n; i++)
+  {
+    for (int j = 0; j < n; j++)
+    {
+      if (i == 0 || i == n - 1 || j == 0 || j == n - 1)
+      {
+        cout << matrix[i][j] << " ";
+      }
+      else
+      {
+        cout << "  ";
+      }
+    }
+    cout << endl;
+  }
+}
+
+int main()
+{
+  int T;
+  cin >> T;
+
+  while (T--)
+  {
+    int n;
+    cin >> n;
+
+    int matrix[100][100];
+
+    for (int i = 0; i < n; i++)
+    {
+      for (int j = 0; j < n; j++)
+      {
+        cin >> matrix[i][j];
+      }
+    }
+
+    printBorderElements(matrix, n);
+  }
+
+  return 0;
+}
+
+
+
+
+#include <string>
+#include <iostream>
+#include <vector>
+#include <sstream>
+
+// LIỆT KÊ SỐ KHÁC NHAU
+
+using namespace std;
+
+int getInput(const int max);
+
+vector<int> getInput(const int max, const int count, const int min = 1);
+
+int main()
+{
+  cout << "Nhap so bo test: ";
+  int sizeOfTest = getInput(100);
+
+  vector<int> testList;
+
+  testList = getInput(1000, sizeOfTest);
+
+  for (int i = 0; i < sizeOfTest; i++)
+  {
+    for (int j = 0; j < sizeOfTest - i - 1; ++j)
+    {
+      if (testList[j] > testList[j + 1])
+      {
+        int temp = testList[j];
+        testList[j] = testList[j + 1];
+        testList[j + 1] = temp;
+      }
+    }
+  }
+
+  if (!testList.empty())
+  {
+    cout << testList[0];
+    for (int i = 1; i < testList.size(); i++)
+    {
+      if (testList[i] != testList[i - 1])
+      {
+        cout << " " << testList[i];
+      }
+    }
+    cout << endl;
+  }
+
+  return 0;
+}
+int getInput(const int max)
+{
+  string input;
+  int value;
+  while (true)
+  {
+    if (getline(cin, input))
+    {
+      if (input.empty())
+      {
+        cout << "Vui long nhap so nguyen duong hop le!" << endl;
+        continue;
+      }
+
+      try
+      {
+        value = stoll(input);
+
+        if (value > 0 && (max < 0 || value <= max))
+        {
+          return value;
+        }
+        cout << "So luong khong hop le! Vui long nhap tu 1 den " << max << endl;
+      }
+      catch (const exception &)
+      {
+        cout << "Vui long nhap so nguyen hop le!" << endl;
+      }
+    }
+  }
+}
+
+vector<int> getInput(const int max, const int count, const int min)
+{
+  string input;
+  vector<int> values;
+
+  while (true)
+  {
+    cout << "Nhap " << count << " so nguyen (cach nhau boi dau cach): ";
+    if (getline(cin, input))
+    {
+      if (input.empty())
+      {
+        cout << "Vui long nhap day so hop le!" << endl;
+        continue;
+      }
+
+      istringstream iss(input);
+      int value;
+      bool valid = true;
+      values.clear();
+
+      while (iss >> value)
+      {
+        if (value >= min && (max < 0 || value <= max))
+        {
+          values.push_back(value);
+        }
+        else
+        {
+          cout << "So " << value << " khong hop le! Vui long nhap so tu " << min << " den " << max << endl;
+          valid = false;
+          break;
+        }
+      }
+
+      if (valid && values.size() == count)
+      {
+        return values;
+      }
+      else if (values.size() != count)
+      {
+        cout << "Vui long nhap dung " << count << " so!" << endl;
+      }
+    }
+  }
+}
+
+
+
+
+#include <string>
+#include <iostream>
+#include <vector>
+#include <sstream>
+#include <map>
+
+// ĐẾM SỐ PHẦN TỬ LẶP LẠI
+
+using namespace std;
+
+int getInput(const int max);
+
+vector<int> getInput(const int max, const int count, const int min = 1);
+
+int main()
+{
+  int sizeOfTest = getInput(100);
+
+  vector<vector<int>> testList;
+
+  for (int i = 0; i < sizeOfTest; i++)
+  {
+    int sizeOfList = getInput(1000000);
+    testList.push_back(getInput(1000000, sizeOfList, 1));
+  }
+
+  for (int i = 0; i < sizeOfTest; i++)
+  {
+    int count = 0;
+
+    for (int j = 0; j < testList[i].size(); j++)
+    {
+      for (int k = 0; k < testList[i].size(); k++)
+      {
+        if (k == j)
+        {
+          continue;
+        }
+        if (testList[i][j] == testList[i][k])
+        {
+          count++;
+        }
+      }
+    }
+
+    cout << count << endl;
+  }
+
+  return 0;
+}
+
+int getInput(const int max)
+{
+  string input;
+  int value;
+  while (true)
+  {
+    if (getline(cin, input))
+    {
+      if (input.empty())
+      {
+        continue;
+      }
+
+      try
+      {
+        value = stoll(input);
+
+        if (value > 0 && (max < 0 || value <= max))
+        {
+          return value;
+        }
+        continue;
+      }
+      catch (const exception &)
+      {
+        continue;
+      }
+    }
+  }
+}
+
+vector<int> getInput(const int max, const int count, const int min)
+{
+  string input;
+  vector<int> values;
+
+  while (true)
+  {
+    if (getline(cin, input))
+    {
+      if (input.empty())
+      {
+        continue;
+      }
+
+      istringstream iss(input);
+      int value;
+      bool valid = true;
+      values.clear();
+
+      while (iss >> value)
+      {
+        if (value >= min && (max < 0 || value <= max))
+        {
+          values.push_back(value);
+        }
+        else
+        {
+          valid = false;
+          break;
+        }
+      }
+
+      if (valid && values.size() == count)
+      {
+        return values;
+      }
+      else if (values.size() != count)
+      {
+        continue;
+      }
+    }
+  }
+}
+
+
+
+
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+// NHỎ NHẤT - LỚN NHẤT
+
+string findSmallest(int m, int s)
+{
+  if (s == 0)
+  {
+    return (m == 1) ? "0" : "-1";
+  }
+
+  if (s > 9 * m)
+  {
+    return "-1";
+  }
+
+  string res = "";
+  int remaining = s;
+
+  for (int i = 0; i < m; i++)
+  {
+    if (i == 0)
+    {
+      for (int d = 1; d <= 9; d++)
+      {
+        if (remaining - d <= 9 * (m - 1))
+        {
+          res += (d + '0');
+          remaining -= d;
+          break;
+        }
+      }
+    }
+    else
+    {
+      for (int d = 0; d <= 9; d++)
+      {
+        if (remaining - d <= 9 * (m - i - 1))
+        {
+          res += (d + '0');
+          remaining -= d;
+          break;
+        }
+      }
+    }
+  }
+
+  return res;
+}
+
+string findLargest(int m, int s)
+{
+  if (s == 0)
+  {
+    return (m == 1) ? "0" : "-1";
+  }
+
+  if (s > 9 * m)
+  {
+    return "-1";
+  }
+
+  string res = "";
+  int remaining = s;
+
+  for (int i = 0; i < m; i++)
+  {
+    int digit = min(9, remaining);
+    res += (digit + '0');
+    remaining -= digit;
+  }
+
+  return res;
+}
+
+int main()
+{
+  int m, s;
+  cin >> m >> s;
+
+  string smallest = findSmallest(m, s);
+  string largest = findLargest(m, s);
+
+  if (smallest == "-1" || largest == "-1")
+  {
+    cout << "-1 -1" << endl;
+  }
+  else
+  {
+    cout << smallest << " " << largest << endl;
+  }
+
+  return 0;
+}
+
+
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+// ĐẦU CUỐI GIỐNG NHAU
+
+int countSubstrings(string s)
+{
+  int count = 0;
+  int n = s.length();
+
+  for (int i = 0; i < n; i++)
+  {
+    for (int j = i; j < n; j++)
+    {
+      if (s[i] == s[j])
+      {
+        count++;
+      }
+    }
+  }
+
+  return count;
+}
+
+int main()
+{
+  int T;
+  cin >> T;
+
+  while (T--)
+  {
+    string s;
+    cin >> s;
+    cout << countSubstrings(s) << endl;
+  }
+
+  return 0;
+}
+
+
+
+
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+// LOẠI BỎ NGUYÊN ÂM
+
+bool isVowel(char c)
+{
+  c = tolower(c);
+  return (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u' || c == 'y');
+}
+
+string processString(string s)
+{
+  string result = "";
+
+  for (char c : s)
+  {
+    if (!isVowel(c))
+    {
+      result += '.';
+      result += tolower(c);
+    }
+  }
+
+  return result;
+}
+
+int main()
+{
+  string s;
+  cin >> s;
+  cout << processString(s) << endl;
+  return 0;
+}
+
+
+
+
+#include <iostream>
+#include <vector>
+#include <set>
+#include <string>
+
+// SẮP XẾP CHỮ SỐ
+
+using namespace std;
+
+void solve()
+{
+  int n;
+  cin >> n;
+
+  set<int> digits;
+
+  for (int i = 0; i < n; i++)
+  {
+    string num;
+    cin >> num;
+
+    for (char c : num)
+    {
+      digits.insert(c - '0');
+    }
+  }
+
+  for (int digit : digits)
+  {
+    cout << digit << " ";
+  }
+  cout << endl;
+}
+
+int main()
+{
+  int T;
+  cin >> T;
+
+  while (T--)
+  {
+    solve();
+  }
+
+  return 0;
+}
+
+
+
+
+
+#include <iostream>
+#include <iomanip>
+#include <string>
+
+// CẤU TRÚC THÍ SINH
+
+using namespace std;
+
+struct ThiSinh
+{
+  string hoTen;
+  string ngaySinh;
+  float diem1;
+  float diem2;
+  float diem3;
+  float tongDiem;
+};
+
+int main()
+{
+  ThiSinh ts;
+
+  getline(cin, ts.hoTen);
+  getline(cin, ts.ngaySinh);
+  cin >> ts.diem1;
+  cin >> ts.diem2;
+  cin >> ts.diem3;
+
+  ts.tongDiem = ts.diem1 + ts.diem2 + ts.diem3;
+
+  cout << ts.hoTen << " " << ts.ngaySinh << " " << fixed << setprecision(1) << ts.tongDiem << endl;
+
+  return 0;
+}
+
+
+
+
+#include <iostream>
+#include <string>
+#include <iomanip>
+
+// CẤU TRÚC NHÂN VIÊN
+
+using namespace std;
+
+struct NhanVien
+{
+  string maNV = "00001";
+  string hoTen;
+  string gioiTinh;
+  string ngaySinh;
+  string diaChi;
+  string maSoThue;
+  string ngayKyHD;
+};
+
+int main()
+{
+  NhanVien nv;
+
+  getline(cin, nv.hoTen);
+  getline(cin, nv.gioiTinh);
+  getline(cin, nv.ngaySinh);
+  getline(cin, nv.diaChi);
+  getline(cin, nv.maSoThue);
+  getline(cin, nv.ngayKyHD);
+
+  cout << nv.maNV << " " << nv.hoTen << " " << nv.gioiTinh << " "
+       << nv.ngaySinh << " " << nv.diaChi << " " << nv.maSoThue << " "
+       << nv.ngayKyHD << endl;
+
+  return 0;
+}
+
+
+
+
+
+#include <iostream>
+
+// KHAI BÁO LỚP PHÂN SỐ
+
+using namespace std;
+
+class PhanSo
+{
+private:
+  long long tu, mau;
+
+  long long gcd(long long a, long long b)
+  {
+    if (b == 0)
+      return a;
+    return gcd(b, a % b);
+  }
+
+  void rutGon()
+  {
+    long long ucln = gcd(abs(tu), abs(mau));
+    tu /= ucln;
+    mau /= ucln;
+  }
+
+public:
+  PhanSo(long long t = 0, long long m = 1)
+  {
+    tu = t;
+    mau = m;
+    rutGon();
+  }
+
+  void nhap()
+  {
+    cin >> tu >> mau;
+    rutGon();
+  }
+
+  void xuat()
+  {
+    cout << tu << "/" << mau;
+  }
+};
+
+int main()
+{
+  PhanSo ps;
+  ps.nhap();
+  ps.xuat();
+  return 0;
+}
+
+
+
+
+#include <iostream>
+
+// TÍNH TỔNG HAI ĐỐI TƯỢNG PHÂN SỐ
+
+using namespace std;
+
+class PhanSo
+{
+private:
+  long long tu, mau;
+
+  long long gcd(long long a, long long b)
+  {
+    if (b == 0)
+      return a;
+    return gcd(b, a % b);
+  }
+
+  void rutGon()
+  {
+    long long ucln = gcd(abs(tu), abs(mau));
+    tu /= ucln;
+    mau /= ucln;
+  }
+
+public:
+  PhanSo(long long t = 0, long long m = 1)
+  {
+    tu = t;
+    mau = m;
+    rutGon();
+  }
+
+  void nhap()
+  {
+    cin >> tu >> mau;
+    rutGon();
+  }
+
+  void xuat()
+  {
+    cout << tu << "/" << mau;
+  }
+
+  PhanSo cong(PhanSo p)
+  {
+    PhanSo tong;
+    tong.tu = tu * p.mau + p.tu * mau;
+    tong.mau = mau * p.mau;
+    tong.rutGon();
+    return tong;
+  }
+};
+
+int main()
+{
+  PhanSo p, q;
+  p.nhap();
+  q.nhap();
+
+  PhanSo tong = p.cong(q);
+  tong.xuat();
+
+  return 0;
+}
+
+
+
+
+
+#include <iostream>
+#include <fstream>
+#include <string>
+
+// SAO CHÉP TỆP TIN
+
+using namespace std;
+
+int main()
+{
+  ifstream inputFile("PTIT.in");
+  if (!inputFile.is_open())
+  {
+    return 1;
+  }
+
+  ofstream outputFile("PTIT.out");
+  if (!outputFile.is_open())
+  {
+    inputFile.close();
+    return 1;
+  }
+
+  string line;
+  while (getline(inputFile, line))
+  {
+    outputFile << line << endl;
+  }
+
+  inputFile.close();
+  outputFile.close();
+
+  return 0;
+}
+
+
+
+
+#include <iostream>
+
+// QUAY MA TRẬN
+
+using namespace std;
+
+void rotateMatrix(int matrix[][100], int n, int m)
+{
+  int top = 0, bottom = n - 1;
+  int left = 0, right = m - 1;
+
+  while (top < bottom && left < right)
+  {
+    int prev = matrix[top + 1][left];
+
+    for (int i = left; i <= right; i++)
+    {
+      int curr = matrix[top][i];
+      matrix[top][i] = prev;
+      prev = curr;
+    }
+    top++;
+
+    for (int i = top; i <= bottom; i++)
+    {
+      int curr = matrix[i][right];
+      matrix[i][right] = prev;
+      prev = curr;
+    }
+    right--;
+
+    if (top <= bottom)
+    {
+      for (int i = right; i >= left; i--)
+      {
+        int curr = matrix[bottom][i];
+        matrix[bottom][i] = prev;
+        prev = curr;
+      }
+      bottom--;
+    }
+
+    if (left <= right)
+    {
+      for (int i = bottom; i >= top; i--)
+      {
+        int curr = matrix[i][left];
+        matrix[i][left] = prev;
+        prev = curr;
+      }
+      left++;
+    }
+  }
+}
+
+void printMatrix(int matrix[][100], int n, int m)
+{
+  for (int i = 0; i < n; i++)
+  {
+    for (int j = 0; j < m; j++)
+    {
+      cout << matrix[i][j] << " ";
+    }
+    cout << endl;
+  }
+}
+
+int main()
+{
+  int T;
+  cin >> T;
+
+  while (T--)
+  {
+    int n, m;
+    cin >> n >> m;
+
+    int matrix[100][100];
+
+    for (int i = 0; i < n; i++)
+    {
+      for (int j = 0; j < m; j++)
+      {
+        cin >> matrix[i][j];
+      }
+    }
+
+    rotateMatrix(matrix, n, m);
+    printMatrix(matrix, n, m);
+  }
+
+  return 0;
+}
+
+
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+// BIẾN ĐỔI DÃY SỐ
+
+int minMerges(vector<int> &arr)
+{
+  int n = arr.size();
+  int left = 0, right = n - 1;
+  int merges = 0;
+
+  while (left < right)
+  {
+    if (arr[left] == arr[right])
+    {
+      left++;
+      right--;
+    }
+    else if (arr[left] < arr[right])
+    {
+      arr[left + 1] += arr[left];
+      left++;
+      merges++;
+    }
+    else
+    {
+      arr[right - 1] += arr[right];
+      right--;
+      merges++;
+    }
+  }
+
+  return merges;
+}
+
+int main()
+{
+  int T;
+  cin >> T;
+
+  while (T--)
+  {
+    int n;
+    cin >> n;
+
+    vector<int> arr(n);
+    for (int i = 0; i < n; i++)
+    {
+      cin >> arr[i];
+    }
+
+    cout << minMerges(arr) << endl;
+  }
+
+  return 0;
+}
+
+
+
+
+#include <iostream>
+using namespace std;
+
+// CỬA SỔ TRƯỢT
+
+void convolution(int A[][100], int B[][10], int N, int M, int result[][100])
+{
+  int windowSize = N / M;
+
+  for (int i = 0; i < M; i++)
+  {
+    for (int j = 0; j < M; j++)
+    {
+      for (int x = 0; x < windowSize; x++)
+      {
+        for (int y = 0; y < windowSize; y++)
+        {
+          int posX = i * windowSize + x;
+          int posY = j * windowSize + y;
+
+          result[posX][posY] = A[posX][posY] * B[i][j];
+        }
+      }
+    }
+  }
+}
+
+int main()
+{
+  int N, M;
+  int A[100][100];
+  int B[10][10];
+  int result[100][100] = {0};
+
+  cin >> N;
+  for (int i = 0; i < N; i++)
+  {
+    for (int j = 0; j < N; j++)
+    {
+      cin >> A[i][j];
+    }
+  }
+
+  cin >> M;
+  for (int i = 0; i < M; i++)
+  {
+    for (int j = 0; j < M; j++)
+    {
+      cin >> B[i][j];
+    }
+  }
+
+  convolution(A, B, N, M, result);
+
+  for (int i = 0; i < N; i++)
+  {
+    for (int j = 0; j < N; j++)
+    {
+      cout << result[i][j] << " ";
+    }
+    cout << endl;
+  }
+
+  return 0;
+}
+
+
+
+
+#include <iostream>
+#include <string>
+
+// ĐỔI CHỖ CHỮ SỐ
+
+using namespace std;
+
+string findLargestSmaller(string num)
+{
+  int n = num.length();
+  string result = num;
+  bool found = false;
+
+  for (int i = 0; i < n - 1; i++)
+  {
+    for (int j = i + 1; j < n; j++)
+    {
+      if (num[i] > num[j])
+      {
+        string temp = num;
+        swap(temp[i], temp[j]);
+        if (temp < num && temp > result)
+        {
+          result = temp;
+          found = true;
+        }
+      }
+    }
+  }
+
+  return found ? result : "-1";
+}
+
+int main()
+{
+  int T;
+  cin >> T;
+
+  while (T--)
+  {
+    string num;
+    cin >> num;
+    cout << findLargestSmaller(num) << endl;
+  }
+
+  return 0;
+}
+
+
+
+
+
+#include <iostream>
+#include <string>
+#include <cctype>
+
+// TÍNH TỔNG CÁC SỐ TRONG XÂU
+
+using namespace std;
+
+int getInput(const int max)
+{
+  string input;
+  int value;
+  while (true)
+  {
+    if (getline(cin, input))
+    {
+      if (input.empty())
+      {
+        continue;
+      }
+
+      try
+      {
+        value = stoll(input);
+
+        if (value > 0 && (max < 0 || value <= max))
+        {
+          return value;
+        }
+        continue;
+      }
+      catch (const exception &)
+      {
+        continue;
+      }
+    }
+  }
+};
+
+string getInput()
+{
+  string input;
+  int value;
+  int min = 1;
+  while (true)
+  {
+    if (getline(cin, input))
+    {
+      if (input.empty())
+      {
+        continue;
+      }
+
+      if (input.length() > 1000000000)
+      {
+        continue;
+      }
+    }
+  }
+
+  return input;
+}
+
+long long sumNumbersInString(const string &s)
+{
+  long long totalSum = 0;
+  int currentNumber = 0;
+  bool hasDigits = false;
+
+  for (int i = 0; i < s.length(); i++)
+  {
+    char c = s[i];
+
+    if (isdigit(c))
+    {
+      currentNumber = currentNumber * 10 + (c - '0');
+      hasDigits = true;
+    }
+    else
+    {
+      if (hasDigits)
+      {
+        totalSum += currentNumber;
+        currentNumber = 0;
+        hasDigits = false;
+      }
+    }
+  }
+
+  if (hasDigits)
+  {
+    totalSum += currentNumber;
+  }
+
+  return totalSum;
+}
+
+int main()
+{
+  int sizeOfTest = getInput(100);
+
+  string inputs[100];
+  long long results[sizeOfTest];
+
+  for (int i = 0; i < sizeOfTest; i++)
+  {
+    getline(cin, inputs[i]);
+    results[i] = sumNumbersInString(inputs[i]);
+  }
+
+  for (int i = 0; i < sizeOfTest; i++)
+  {
+    cout << results[i] << endl;
+  }
+
+  return 0;
+}
+
+
+
+
+#include <iostream>
+#include <string>
+#include <algorithm>
+#include <cctype>
+
+// TÁCH CHỮ SỐ
+
+using namespace std;
+
+string processString(const string &s)
+{
+  string letters = "";
+  int digitSum = 0;
+
+  for (int i = 0; i < s.length(); i++)
+  {
+    char c = s[i];
+
+    if (c >= 'A' && c <= 'Z')
+    {
+      letters += c;
+    }
+    else if (c >= '0' && c <= '9')
+    {
+      digitSum += (c - '0');
+    }
+  }
+
+  sort(letters.begin(), letters.end());
+
+  string result = letters;
+  if (digitSum > 0)
+  {
+    result += to_string(digitSum);
+  }
+
+  return result;
+}
+
+int main()
+{
+  int t;
+
+  while (true)
+  {
+    cin >> t;
+    cin.ignore();
+
+    if (t > 0 && t <= 100)
+    {
+      break;
+    }
+  }
+
+  string inputs[100];
+  string results[100];
+
+  for (int i = 0; i < t; i++)
+  {
+    while (inputs[i].empty() || inputs[i].length() > 100000)
+    {
+      getline(cin, inputs[i]);
+    }
+    results[i] = processString(inputs[i]);
+  }
+
+  for (int i = 0; i < t; i++)
+  {
+    cout << results[i] << endl;
+  }
+
+  return 0;
+}
+
+
+
+
+
+#include <iostream>
+#include <vector>
+
+// HỢP VÀ GIAO CỦA HAI DÃY SỐ -1
+using namespace std;
+
+void findUnionAndIntersection(vector<int> &A, vector<int> &B, int n, int m)
+{
+  vector<int> Union, Intersection;
+  int i = 0, j = 0;
+
+  while (i < n && j < m)
+  {
+    if (A[i] < B[j])
+    {
+      Union.push_back(A[i]);
+      i++;
+    }
+    else if (A[i] > B[j])
+    {
+      Union.push_back(B[j]);
+      j++;
+    }
+    else
+    {
+      Union.push_back(A[i]);
+      Intersection.push_back(A[i]);
+      i++;
+      j++;
+    }
+  }
+
+  while (i < n)
+  {
+    Union.push_back(A[i]);
+    i++;
+  }
+
+  while (j < m)
+  {
+    Union.push_back(B[j]);
+    j++;
+  }
+
+  for (int x : Union)
+  {
+    cout << x << " ";
+  }
+  cout << endl;
+
+  for (int x : Intersection)
+  {
+    cout << x << " ";
+  }
+  cout << endl;
+}
+
+int main()
+{
+  int T;
+  cin >> T;
+
+  while (T--)
+  {
+    int n, m;
+    cin >> n >> m;
+
+    vector<int> A(n), B(m);
+
+    for (int i = 0; i < n; i++)
+    {
+      cin >> A[i];
+    }
+
+    for (int i = 0; i < m; i++)
+    {
+      cin >> B[i];
+    }
+
+    findUnionAndIntersection(A, B, n, m);
+  }
+
+  return 0;
+}
+
+
+
+
+#include <iostream>
+#include <vector>
+#include <set>
+
+// HỢP VÀ GIAO CỦA HAI DÃY SỐ -2
+
+using namespace std;
+
+void findUnionAndIntersection(vector<int> &A, vector<int> &B, int n, int m)
+{
+  set<int> unionSet, intersectionSet;
+
+  for (int x : A)
+  {
+    unionSet.insert(x);
+  }
+
+  for (int x : B)
+  {
+    if (unionSet.find(x) != unionSet.end())
+    {
+      intersectionSet.insert(x);
+    }
+    unionSet.insert(x);
+  }
+
+  for (int x : unionSet)
+  {
+    cout << x << " ";
+  }
+  cout << endl;
+
+  for (int x : intersectionSet)
+  {
+    cout << x << " ";
+  }
+  cout << endl;
+}
+
+int main()
+{
+  int T;
+  cin >> T;
+
+  while (T--)
+  {
+    int n, m;
+    cin >> n >> m;
+
+    vector<int> A(n), B(m);
+
+    for (int i = 0; i < n; i++)
+    {
+      cin >> A[i];
+    }
+
+    for (int i = 0; i < m; i++)
+    {
+      cin >> B[i];
+    }
+
+    findUnionAndIntersection(A, B, n, m);
+  }
+
+  return 0;
+}
+
+
+
+
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+// SẮP XẾP XEN KẼ - 2
+
+using namespace std;
+
+void rearrangeArray(vector<int> &arr, int n)
+{
+  sort(arr.begin(), arr.end());
+  vector<int> result(n);
+
+  int left = 0, right = n - 1;
+  int index = 0;
+
+  while (left <= right)
+  {
+    if (index % 2 == 0)
+    {
+      result[index] = arr[right];
+      right--;
+    }
+    else
+    {
+      result[index] = arr[left];
+      left++;
+    }
+    index++;
+  }
+
+  for (int x : result)
+  {
+    cout << x << " ";
+  }
+  cout << endl;
+}
+
+int main()
+{
+  int T;
+  cin >> T;
+
+  while (T--)
+  {
+    int n;
+    cin >> n;
+
+    vector<int> arr(n);
+    for (int i = 0; i < n; i++)
+    {
+      cin >> arr[i];
+    }
+
+    rearrangeArray(arr, n);
+  }
+
+  return 0;
+}
+
+
+
+
+
+#include <iostream>
+#include <string>
+#include <algorithm>
+#include <cctype>
+#include <iomanip>
+#include <sstream>
+#include <regex>
+#include <vector>
+
+// DANH SÁCH SINH VIÊN - 1
+
+using namespace std;
+
+bool isValidDate(int d, int m, int y)
+{
+  if (y < 1 || m < 1 || m > 12 || d < 1)
+    return false;
+
+  int daysInMonth[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
+  // Kiểm tra năm nhuận
+  if ((y % 4 == 0 && y % 100 != 0) || (y % 400 == 0))
+  {
+    daysInMonth[1] = 29;
+  }
+
+  return d <= daysInMonth[m - 1];
+}
+
+bool isValidDateString(const string &dateStr)
+{
+  regex datePattern(R"(^\s*(\d{1,2})/(\d{1,2})/(\d{4})\s*$)");
+  smatch match;
+
+  if (regex_match(dateStr, match, datePattern))
+  {
+    int d = stoi(match[1]);
+    int m = stoi(match[2]);
+    int y = stoi(match[3]);
+    return isValidDate(d, m, y);
+  }
+
+  return false;
+}
+
+template <typename T>
+class Node
+{
+public:
+  T data;
+  Node *next;
+
+  explicit Node(T newData)
+  {
+    this->data = newData;
+    this->next = NULL;
+  }
+};
+
+class SinhVien
+{
+  static int soSinhVien;
+  string id;
+  string hoTen;
+  string lop;
+  string ngaySinh;
+  float gpa;
+
+  static string createId(int value)
+  {
+    ostringstream oss;
+    oss << "B20DCCN" << setfill('0') << setw(3) << value;
+    return oss.str();
+  }
+
+public:
+  SinhVien(int idValue, string hoTen, string lop, string ngaySinh, float gpa)
+  {
+    this->id = createId(idValue);
+    this->hoTen = hoTen;
+    this->lop = lop;
+    this->ngaySinh = ngaySinh;
+    this->gpa = gpa;
+    SinhVien::soSinhVien++;
+  }
+  void setId(int value)
+  {
+    this->id = createId(value);
+  }
+
+  void setHoTen(string hoTen)
+  {
+    this->hoTen = hoTen;
+  }
+
+  void setNgaySinh(string ngaySinh)
+  {
+    this->ngaySinh = ngaySinh;
+  }
+
+  void setLop(string lop)
+  {
+    this->lop = lop;
+  }
+
+  string getId() const
+  {
+    return this->id;
+  }
+
+  string getHoTen() const
+  {
+    return this->hoTen;
+  }
+
+  string getNgaySinh() const
+  {
+    return this->ngaySinh;
+  }
+
+  string getLop() const
+  {
+    return this->lop;
+  }
+
+  float getGpa() const
+  {
+    return this->gpa;
+  }
+};
+
+int SinhVien::soSinhVien = 1;
+
+int main()
+{
+  int soSinhVien;
+
+  vector<SinhVien> listSinhVien;
+
+  while (true)
+  {
+    cout << "Nhap so sinh vien: ";
+    cin >> soSinhVien;
+    cin.ignore();
+
+    if (soSinhVien > 0 && soSinhVien <= 50)
+    {
+      break;
+    }
+  }
+
+  for (int i = 0; i < soSinhVien; i++)
+  {
+    string hoTenInput;
+    while (hoTenInput.empty() || hoTenInput.length() > 30)
+    {
+      cout << "Nhap ho ten sinh vien " << i + 1 << ": ";
+      getline(cin, hoTenInput);
+    }
+
+    string lopInput;
+    while (lopInput.empty() || lopInput.length() > 12)
+    {
+      cout << "Nhap lop sinh vien " << i + 1 << ": ";
+      getline(cin, lopInput);
+    }
+
+    string ngaySinhInput;
+    while (ngaySinhInput.empty() || !isValidDateString(ngaySinhInput))
+    {
+      cout << "Nhap ngay sinh " << i + 1 << ": ";
+      getline(cin, ngaySinhInput);
+    }
+
+    float diemInput = -1;
+    while (diemInput < 0 || diemInput > 4)
+    {
+      cout << "Nhap diem " << i + 1 << ": ";
+      cin >> diemInput;
+      cin.ignore();
+    }
+
+    SinhVien newSinhVien = SinhVien(i + 1, hoTenInput, lopInput, ngaySinhInput, diemInput);
+    listSinhVien.push_back(newSinhVien);
+  }
+
+  for (int i = 0; i < listSinhVien.size(); i++)
+  {
+    cout << listSinhVien[i].getId() << " " << listSinhVien[i].getHoTen() << " " << listSinhVien[i].getLop() << " " << listSinhVien[i].getNgaySinh() << " " << fixed << setprecision(2) << listSinhVien[i].getGpa() << endl;
+  }
+
+  return 0;
+}
+
+
+
+#include <iostream>
+#include <string>
+#include <algorithm>
+#include <cctype>
+#include <iomanip>
+#include <sstream>
+#include <regex>
+#include <vector>
+
+// DANH SÁCH SINH VIÊN - 2
+
+using namespace std;
+
+string formatName(const string &input)
+{
+  stringstream ss(input);
+  string word;
+  vector<string> words;
+
+  while (ss >> word)
+  {
+    transform(word.begin(), word.end(), word.begin(), ::tolower);
+
+    if (!word.empty())
+    {
+      word[0] = toupper(word[0]);
+    }
+
+    words.push_back(word);
+  }
+
+  string result;
+  for (size_t i = 0; i < words.size(); ++i)
+  {
+    result += words[i];
+    if (i != words.size() - 1)
+      result += " ";
+  }
+
+  return result;
+}
+
+string formatFloat(float value)
+{
+  ostringstream out;
+  out << fixed << setprecision(2) << value;
+  return out.str();
+}
+
+string formatDate(string value)
+{
+  int d, m, y;
+  char slash;
+  stringstream ss(value);
+  ss >> d >> slash >> m >> slash >> y;
+
+  if (ss.fail())
+    return "Invalid date format";
+
+  ostringstream formatted;
+  formatted << setw(2) << setfill('0') << d << "/"
+            << setw(2) << setfill('0') << m << "/"
+            << y;
+
+  return formatted.str();
+}
+
+bool isValidDate(int d, int m, int y)
+{
+  if (y < 1 || m < 1 || m > 12 || d < 1)
+    return false;
+
+  int daysInMonth[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
+  // Kiểm tra năm nhuận
+  if ((y % 4 == 0 && y % 100 != 0) || (y % 400 == 0))
+  {
+    daysInMonth[1] = 29;
+  }
+
+  return d <= daysInMonth[m - 1];
+}
+
+bool isValidDateString(const string &dateStr)
+{
+  regex datePattern(R"(^\s*(\d{1,2})/(\d{1,2})/(\d{4})\s*$)");
+  smatch match;
+
+  if (regex_match(dateStr, match, datePattern))
+  {
+    int d = stoi(match[1]);
+    int m = stoi(match[2]);
+    int y = stoi(match[3]);
+    return isValidDate(d, m, y);
+  }
+
+  return false;
+}
+
+template <typename T>
+class Node
+{
+public:
+  T data;
+  Node *next;
+
+  explicit Node(T newData)
+  {
+    this->data = newData;
+    this->next = NULL;
+  }
+};
+
+class SinhVien
+{
+  static int soSinhVien;
+  string id;
+  string hoTen;
+  string lop;
+  string ngaySinh;
+  float gpa;
+
+  static string createId(int value)
+  {
+    ostringstream oss;
+    oss << "B20DCCN" << setfill('0') << setw(3) << value;
+    return oss.str();
+  }
+
+public:
+  SinhVien(int idValue, string hoTen, string lop, string ngaySinh, float gpa)
+  {
+    this->id = createId(idValue);
+    this->hoTen = hoTen;
+    this->lop = lop;
+    this->ngaySinh = ngaySinh;
+    this->gpa = gpa;
+    SinhVien::soSinhVien++;
+  }
+  void setId(int value)
+  {
+    this->id = createId(value);
+  }
+
+  void setHoTen(string hoTen)
+  {
+    this->hoTen = hoTen;
+  }
+
+  void setNgaySinh(string ngaySinh)
+  {
+    this->ngaySinh = ngaySinh;
+  }
+
+  void setLop(string lop)
+  {
+    this->lop = lop;
+  }
+
+  string getId() const
+  {
+    return this->id;
+  }
+
+  string getHoTen() const
+  {
+    return this->hoTen;
+  }
+
+  string getNgaySinh() const
+  {
+    return this->ngaySinh;
+  }
+
+  string getLop() const
+  {
+    return this->lop;
+  }
+
+  float getGpa() const
+  {
+    return this->gpa;
+  }
+};
+
+int SinhVien::soSinhVien = 1;
+
+int main()
+{
+  int soSinhVien;
+
+  vector<SinhVien> listSinhVien;
+
+  while (true)
+  {
+    cin >> soSinhVien;
+    cin.ignore();
+
+    if (soSinhVien > 0 && soSinhVien <= 50)
+    {
+      break;
+    }
+  }
+
+  for (int i = 0; i < soSinhVien; i++)
+  {
+    string hoTenInput;
+    while (hoTenInput.empty() || hoTenInput.length() > 30)
+    {
+      getline(cin, hoTenInput);
+    }
+
+    string lopInput;
+    while (lopInput.empty() || lopInput.length() > 12)
+    {
+      getline(cin, lopInput);
+    }
+
+    string ngaySinhInput;
+    while (ngaySinhInput.empty() || !isValidDateString(ngaySinhInput))
+    {
+      getline(cin, ngaySinhInput);
+    }
+
+    float diemInput = -1;
+    while (diemInput < 0 || diemInput > 4)
+    {
+      cin >> diemInput;
+      cin.ignore();
+    }
+
+    SinhVien newSinhVien = SinhVien(i + 1, formatName(hoTenInput), lopInput, ngaySinhInput, diemInput);
+    listSinhVien.push_back(newSinhVien);
+  }
+
+  for (int i = 0; i < listSinhVien.size(); i++)
+  {
+    cout << listSinhVien[i].getId() << " " << listSinhVien[i].getHoTen() << " " << listSinhVien[i].getLop() << " " << formatDate(listSinhVien[i].getNgaySinh()) << " " << formatFloat(listSinhVien[i].getGpa()) << endl;
+  }
+
+  return 0;
+}
+
+
+
+
+#include <iostream>
+#include <string>
+#include <algorithm>
+#include <cctype>
+#include <iomanip>
+#include <sstream>
+#include <regex>
+#include <vector>
+#include <cmath>
+
+// DANH SÁCH SINH VIÊN - 3
+
+using namespace std;
+
+bool areFloatsEqual(float a, float b, float epsilon = 1e-6)
+{
+  return (fabs(a - b) <= epsilon);
+}
+
+string formatName(const string &input)
+{
+  stringstream ss(input);
+  string word;
+  vector<string> words;
+
+  while (ss >> word)
+  {
+    transform(word.begin(), word.end(), word.begin(), ::tolower);
+
+    if (!word.empty())
+    {
+      word[0] = toupper(word[0]);
+    }
+
+    words.push_back(word);
+  }
+
+  string result;
+  for (size_t i = 0; i < words.size(); ++i)
+  {
+    result += words[i];
+    if (i != words.size() - 1)
+      result += " ";
+  }
+
+  return result;
+}
+
+string formatFloat(float value)
+{
+  ostringstream out;
+  out << fixed << setprecision(2) << value;
+  return out.str();
+}
+
+string formatDate(string value)
+{
+  int d, m, y;
+  char slash;
+  stringstream ss(value);
+  ss >> d >> slash >> m >> slash >> y;
+
+  if (ss.fail())
+    return "Invalid date format";
+
+  ostringstream formatted;
+  formatted << setw(2) << setfill('0') << d << "/"
+            << setw(2) << setfill('0') << m << "/"
+            << y;
+
+  return formatted.str();
+}
+
+bool isValidDate(int d, int m, int y)
+{
+  if (y < 1 || m < 1 || m > 12 || d < 1)
+    return false;
+
+  int daysInMonth[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
+  // Kiểm tra năm nhuận
+  if ((y % 4 == 0 && y % 100 != 0) || (y % 400 == 0))
+  {
+    daysInMonth[1] = 29;
+  }
+
+  return d <= daysInMonth[m - 1];
+}
+
+bool isValidDateString(const string &dateStr)
+{
+  regex datePattern(R"(^\s*(\d{1,2})/(\d{1,2})/(\d{4})\s*$)");
+  smatch match;
+
+  if (regex_match(dateStr, match, datePattern))
+  {
+    int d = stoi(match[1]);
+    int m = stoi(match[2]);
+    int y = stoi(match[3]);
+    return isValidDate(d, m, y);
+  }
+
+  return false;
+}
+
+template <typename T>
+class Node
+{
+public:
+  T data;
+  Node *next;
+
+  explicit Node(T newData)
+  {
+    this->data = newData;
+    this->next = NULL;
+  }
+};
+
+class SinhVien
+{
+  static int soSinhVien;
+  string id;
+  string hoTen;
+  string lop;
+  string ngaySinh;
+  float gpa;
+
+  static string createId(int value)
+  {
+    ostringstream oss;
+    oss << "B20DCCN" << setfill('0') << setw(3) << value;
+    return oss.str();
+  }
+
+public:
+  SinhVien(int idValue, string hoTen, string lop, string ngaySinh, float gpa)
+  {
+    this->id = createId(idValue);
+    this->hoTen = hoTen;
+    this->lop = lop;
+    this->ngaySinh = ngaySinh;
+    this->gpa = gpa;
+    SinhVien::soSinhVien++;
+  }
+  void setId(int value)
+  {
+    this->id = createId(value);
+  }
+
+  void setHoTen(string hoTen)
+  {
+    this->hoTen = hoTen;
+  }
+
+  void setNgaySinh(string ngaySinh)
+  {
+    this->ngaySinh = ngaySinh;
+  }
+
+  void setLop(string lop)
+  {
+    this->lop = lop;
+  }
+
+  string getId() const
+  {
+    return this->id;
+  }
+
+  string getHoTen() const
+  {
+    return this->hoTen;
+  }
+
+  string getNgaySinh() const
+  {
+    return this->ngaySinh;
+  }
+
+  string getLop() const
+  {
+    return this->lop;
+  }
+
+  float getGpa() const
+  {
+    return this->gpa;
+  }
+};
+
+int SinhVien::soSinhVien = 1;
+
+int main()
+{
+  int soSinhVien;
+
+  vector<SinhVien> listSinhVien;
+
+  while (true)
+  {
+    cout << "Nhap so sinh vien: ";
+    cin >> soSinhVien;
+    cin.ignore();
+
+    if (soSinhVien > 0 && soSinhVien <= 50)
+    {
+      break;
+    }
+  }
+
+  for (int i = 0; i < soSinhVien; i++)
+  {
+    string hoTenInput;
+    while (hoTenInput.empty() || hoTenInput.length() > 30)
+    {
+      cout << "Nhap ho ten sinh vien " << i + 1 << ": ";
+      getline(cin, hoTenInput);
+    }
+
+    string lopInput;
+    while (lopInput.empty() || lopInput.length() > 12)
+    {
+      cout << "Nhap lop sinh vien " << i + 1 << ": ";
+      getline(cin, lopInput);
+    }
+
+    string ngaySinhInput;
+    while (ngaySinhInput.empty() || !isValidDateString(ngaySinhInput))
+    {
+      cout << "Nhap ngay sinh " << i + 1 << ": ";
+      getline(cin, ngaySinhInput);
+    }
+
+    float diemInput = -1;
+    while (diemInput < 0 || diemInput > 4)
+    {
+      cout << "Nhap diem " << i + 1 << ": ";
+      cin >> diemInput;
+      cin.ignore();
+    }
+
+    for (int i = 0; i < listSinhVien.size(); i++)
+    {
+      if (areFloatsEqual(listSinhVien[i].getGpa(), diemInput))
+      {
+        continue;
+      }
+    }
+
+    SinhVien newSinhVien = SinhVien(i + 1, formatName(hoTenInput), lopInput, ngaySinhInput, diemInput);
+    listSinhVien.push_back(newSinhVien);
+  }
+
+  for (int i = 0; i < listSinhVien.size(); i++)
+  {
+    cout << listSinhVien[i].getId() << " " << listSinhVien[i].getHoTen() << " " << listSinhVien[i].getLop() << " " << formatDate(listSinhVien[i].getNgaySinh()) << " " << formatFloat(listSinhVien[i].getGpa()) << endl;
+  }
+
+  return 0;
+}
+
+
+
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <iomanip>
+
+// SẮP XẾP DANH SÁCH NHÂN VIÊN
+
+using namespace std;
+
+struct NhanVien
+{
+  string maNV;
+  string hoTen;
+  string gioiTinh;
+  string ngaySinh;
+  string diaChi;
+  string maSoThue;
+  string ngayKyHD;
+
+  static int count;
+
+  NhanVien()
+  {
+    count++;
+    maNV = string(5 - to_string(count).length(), '0') + to_string(count);
+  }
+};
+
+int NhanVien::count = 0;
+
+bool compareByBirthDate(const NhanVien &a, const NhanVien &b)
+{
+  string dateA = a.ngaySinh.substr(6, 4) + a.ngaySinh.substr(3, 2) + a.ngaySinh.substr(0, 2);
+  string dateB = b.ngaySinh.substr(6, 4) + b.ngaySinh.substr(3, 2) + b.ngaySinh.substr(0, 2);
+  return dateA < dateB;
+}
+
+int main()
+{
+  int N;
+  cin >> N;
+  cin.ignore();
+
+  vector<NhanVien> dsNV(N);
+
+  for (int i = 0; i < N; i++)
+  {
+    getline(cin, dsNV[i].hoTen);
+    getline(cin, dsNV[i].gioiTinh);
+    getline(cin, dsNV[i].ngaySinh);
+    getline(cin, dsNV[i].diaChi);
+    getline(cin, dsNV[i].maSoThue);
+    getline(cin, dsNV[i].ngayKyHD);
+  }
+
+  sort(dsNV.begin(), dsNV.end(), compareByBirthDate);
+
+  for (const NhanVien &nv : dsNV)
+  {
+    cout << nv.maNV << " " << nv.hoTen << " " << nv.gioiTinh << " "
+         << nv.ngaySinh << " " << nv.diaChi << " " << nv.maSoThue << " "
+         << nv.ngayKyHD << endl;
+  }
+
+  return 0;
+}
+
+
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <iomanip>
+
+// BẢNG ĐIỂM THÀNH PHẦN - 1
+
+using namespace std;
+
+struct SinhVien
+{
+  string maSV;
+  string hoTen;
+  string lop;
+  float d1, d2, d3;
+};
+
+bool cmp(const SinhVien &a, const SinhVien &b)
+{
+  return a.maSV < b.maSV;
+}
+
+int main()
+{
+  int n;
+  cin >> n;
+  cin.ignore();
+  vector<SinhVien> ds(n);
+  for (int i = 0; i < n; ++i)
+  {
+    getline(cin, ds[i].maSV);
+    getline(cin, ds[i].hoTen);
+    getline(cin, ds[i].lop);
+    cin >> ds[i].d1 >> ds[i].d2 >> ds[i].d3;
+    cin.ignore();
+  }
+  sort(ds.begin(), ds.end(), cmp);
+  for (int i = 0; i < n; ++i)
+  {
+    cout << i + 1 << " " << ds[i].maSV << " " << ds[i].hoTen << " " << ds[i].lop << " ";
+    cout << fixed << setprecision(1) << ds[i].d1 << " " << ds[i].d2 << " " << ds[i].d3 << endl;
+  }
+  return 0;
+}
+
+
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <iomanip>
+
+// BẢNG ĐIỂM THÀNH PHẦN - 2
+
+using namespace std;
+
+struct SinhVien
+{
+  string maSV;
+  string hoTen;
+  string lop;
+  float d1, d2, d3;
+};
+
+bool cmp(const SinhVien &a, const SinhVien &b)
+{
+  return a.hoTen < b.hoTen;
+}
+
+int main()
+{
+  int n;
+  cin >> n;
+  cin.ignore();
+  vector<SinhVien> ds(n);
+  for (int i = 0; i < n; ++i)
+  {
+    getline(cin, ds[i].maSV);
+    getline(cin, ds[i].hoTen);
+    getline(cin, ds[i].lop);
+    cin >> ds[i].d1 >> ds[i].d2 >> ds[i].d3;
+    cin.ignore();
+  }
+  sort(ds.begin(), ds.end(), cmp);
+  for (int i = 0; i < n; ++i)
+  {
+    cout << i + 1 << " " << ds[i].maSV << " " << ds[i].hoTen << " " << ds[i].lop << " ";
+    cout << fixed << setprecision(1) << ds[i].d1 << " " << ds[i].d2 << " " << ds[i].d3 << endl;
+  }
+  return 0;
+}
+
+
+
+#include <iostream>
+#include <vector>
+#include <string>
+
+// TRẺ NHẤT – GIÀ NHẤT
+
+using namespace std;
+
+struct Person
+{
+  string name;
+  string dob;
+};
+
+string toSortableDate(const string &dob)
+{
+  return dob.substr(6, 4) + dob.substr(3, 2) + dob.substr(0, 2);
+}
+
+int main()
+{
+  int n;
+  cin >> n;
+  vector<Person> people(n);
+  for (int i = 0; i < n; ++i)
+  {
+    cin >> people[i].name >> people[i].dob;
+  }
+
+  int idx_youngest = 0, idx_oldest = 0;
+  for (int i = 1; i < n; ++i)
+  {
+    if (toSortableDate(people[i].dob) > toSortableDate(people[idx_youngest].dob))
+    {
+      idx_youngest = i;
+    }
+    if (toSortableDate(people[i].dob) < toSortableDate(people[idx_oldest].dob))
+    {
+      idx_oldest = i;
+    }
+  }
+
+  cout << people[idx_youngest].name << endl;
+  cout << people[idx_oldest].name << endl;
+  return 0;
+}
+
+
+
+
+#include <iostream>
+#include <vector>
+#include <string>
+#include <iomanip>
+
+// DANH SÁCH ĐỐI TƯỢNG NHÂN VIÊN
+
+using namespace std;
+
+struct NhanVien
+{
+  string maNV;
+  string hoTen;
+  string gioiTinh;
+  string ngaySinh;
+  string diaChi;
+  string maSoThue;
+  string ngayKyHD;
+  static int count;
+
+  NhanVien()
+  {
+    count++;
+    maNV = string(5 - to_string(count).length(), '0') + to_string(count);
+  }
+
+  friend istream &operator>>(istream &in, NhanVien &nv)
+  {
+    getline(in, nv.hoTen);
+    getline(in, nv.gioiTinh);
+    getline(in, nv.ngaySinh);
+    getline(in, nv.diaChi);
+    getline(in, nv.maSoThue);
+    getline(in, nv.ngayKyHD);
+    return in;
+  }
+
+  friend ostream &operator<<(ostream &out, const NhanVien &nv)
+  {
+    out << nv.maNV << " " << nv.hoTen << " " << nv.gioiTinh << " "
+        << nv.ngaySinh << " " << nv.diaChi << " " << nv.maSoThue << " "
+        << nv.ngayKyHD;
+    return out;
+  }
+};
+int NhanVien::count = 0;
+
+int main()
+{
+  int N;
+  cin >> N;
+  cin.ignore();
+  vector<NhanVien> ds(N);
+  for (int i = 0; i < N; ++i)
+  {
+    cin >> ds[i];
+  }
+  for (const auto &nv : ds)
+  {
+    cout << nv << endl;
+  }
+  return 0;
+}
+
+
+
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+// SẮP XẾP SINH VIÊN THEO LỚP
+
+using namespace std;
+
+struct SinhVien
+{
+  string ma, ten, lop, email;
+};
+
+bool cmp(const SinhVien &a, const SinhVien &b)
+{
+  if (a.lop != b.lop)
+    return a.lop < b.lop;
+  return a.ma < b.ma;
+}
+
+int main()
+{
+  int n;
+  cin >> n;
+  cin.ignore();
+  vector<SinhVien> ds(n);
+  for (int i = 0; i < n; ++i)
+  {
+    getline(cin, ds[i].ma);
+    getline(cin, ds[i].ten);
+    getline(cin, ds[i].lop);
+    getline(cin, ds[i].email);
+  }
+  sort(ds.begin(), ds.end(), cmp);
+  for (const auto &sv : ds)
+  {
+    cout << sv.ma << " " << sv.ten << " " << sv.lop << " " << sv.email << endl;
+  }
+  return 0;
+}
+
+
+
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+// SẮP XẾP THEO MÃ SINH VIÊN
+
+using namespace std;
+
+struct SinhVien
+{
+  string ma, ten, lop, email;
+};
+
+int main()
+{
+  vector<SinhVien> ds;
+  string ma, ten, lop, email;
+  while (getline(cin, ma))
+  {
+    getline(cin, ten);
+    getline(cin, lop);
+    getline(cin, email);
+    ds.push_back({ma, ten, lop, email});
+  }
+  sort(ds.begin(), ds.end(), [](const SinhVien &a, const SinhVien &b)
+       { return a.ma < b.ma; });
+  for (const auto &sv : ds)
+  {
+    cout << sv.ma << " " << sv.ten << " " << sv.lop << " " << sv.email << endl;
+  }
+  return 0;
+}
+
+
+
+
+#include <iostream>
+#include <vector>
+#include <string>
+
+// LIỆT KÊ SINH VIÊN THEO NGÀNH
+using namespace std;
+
+struct SinhVien
+{
+  string ma, ten, lop, email;
+};
+
+bool thuocNganh(const SinhVien &sv, const string &nganh)
+{
+  string code = sv.ma.substr(3, 4);
+  if (nganh == "KE TOAN")
+    return code == "DCKT";
+  if (nganh == "CONG NGHE THONG TIN")
+    return code == "DCCN" && sv.lop[0] != 'E';
+  if (nganh == "AN TOAN THONG TIN")
+    return code == "DCAT" && sv.lop[0] != 'E';
+  if (nganh == "VIEN THONG")
+    return code == "DCVT";
+  if (nganh == "DIEN TU")
+    return code == "DCDT";
+  return false;
+}
+
+int main()
+{
+  int n;
+  cin >> n;
+  cin.ignore();
+  vector<SinhVien> ds(n);
+  for (int i = 0; i < n; ++i)
+  {
+    getline(cin, ds[i].ma);
+    getline(cin, ds[i].ten);
+    getline(cin, ds[i].lop);
+    getline(cin, ds[i].email);
+  }
+  int Q;
+  cin >> Q;
+  cin.ignore();
+  vector<string> truyvan(Q);
+  for (int i = 0; i < Q; ++i)
+  {
+    getline(cin, truyvan[i]);
+  }
+  for (const string &nganh : truyvan)
+  {
+    cout << "DANH SACH SINH VIEN NGANH " << nganh << ":\n";
+    for (const auto &sv : ds)
+    {
+      if (thuocNganh(sv, nganh))
+      {
+        cout << sv.ma << " " << sv.ten << " " << sv.lop << " " << sv.email << endl;
+      }
+    }
+  }
+  return 0;
+}
+
+
+
+#include <iostream>
+#include <vector>
+#include <string>
+#include <sstream>
+#include <algorithm>
+
+// TÌM KIẾM GIẢNG VIÊN
+
+using namespace std;
+
+struct GiangVien
+{
+  string ma, ten, bomon;
+};
+
+string vietTat(const string &s)
+{
+  stringstream ss(s);
+  string word, res;
+  while (ss >> word)
+  {
+    res += toupper(word[0]);
+  }
+  return res;
+}
+
+string toLower(string s)
+{
+  transform(s.begin(), s.end(), s.begin(), ::tolower);
+  return s;
+}
+
+bool timKiem(const string &ten, const string &keyword)
+{
+  string tenLower = toLower(ten);
+  string keywordLower = toLower(keyword);
+  return tenLower.find(keywordLower) != string::npos;
+}
+
+int main()
+{
+  int n;
+  cin >> n;
+  cin.ignore();
+  vector<GiangVien> ds(n);
+  for (int i = 0; i < n; ++i)
+  {
+    getline(cin, ds[i].ten);
+    getline(cin, ds[i].bomon);
+    ds[i].ma = "GV" + string(2 - to_string(i + 1).length(), '0') + to_string(i + 1);
+  }
+  int Q;
+  cin >> Q;
+  cin.ignore();
+  vector<string> truyvan(Q);
+  for (int i = 0; i < Q; ++i)
+  {
+    getline(cin, truyvan[i]);
+  }
+  for (const string &keyword : truyvan)
+  {
+    cout << "DANH SACH GIANG VIEN THEO TU KHOA " << keyword << ":\n";
+    for (const auto &gv : ds)
+    {
+      if (timKiem(gv.ten, keyword))
+      {
+        cout << gv.ma << " " << gv.ten << " " << vietTat(gv.bomon) << endl;
+      }
+    }
+  }
+  return 0;
+}
+
+
+
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+// DANH SÁCH DOANH NGHIỆP NHẬN SINH VIÊN THỰC TẬP - 1
+
+using namespace std;
+
+struct DoanhNghiep
+{
+  string ma, ten;
+  int sl;
+};
+
+bool cmp(const DoanhNghiep &a, const DoanhNghiep &b)
+{
+  if (a.sl != b.sl)
+    return a.sl > b.sl;
+  return a.ma < b.ma;
+}
+
+int main()
+{
+  int n;
+  cin >> n;
+  cin.ignore();
+  vector<DoanhNghiep> ds(n);
+  for (int i = 0; i < n; ++i)
+  {
+    getline(cin, ds[i].ma);
+    getline(cin, ds[i].ten);
+    cin >> ds[i].sl;
+    cin.ignore();
+  }
+  sort(ds.begin(), ds.end(), cmp);
+  for (const auto &dn : ds)
+  {
+    cout << dn.ma << " " << dn.ten << " " << dn.sl << endl;
+  }
+  return 0;
+}
+
+
+
+
+
+#include <iostream>
+#include <string>
+#include <stack>
+
+// LOẠI BỎ 100
+
+using namespace std;
+
+int maxLength(string s)
+{
+  stack<int> st;
+  st.push(-1);
+  int maxLen = 0;
+  for (int i = 0; i < s.length(); ++i)
+  {
+    if (s[i] == '1')
+    {
+      st.push(i);
+    }
+    else
+    {
+      st.pop();
+      if (!st.empty())
+      {
+        maxLen = max(maxLen, i - st.top());
+      }
+      else
+      {
+        st.push(i);
+      }
+    }
+  }
+  return maxLen;
+}
+
+int main()
+{
+  int T;
+  cin >> T;
+  while (T--)
+  {
+    string s;
+    cin >> s;
+    cout << maxLength(s) << endl;
+  }
+  return 0;
+}
+
+
+
+#include <iostream>
+#include <fstream>
+#include <map>
+
+// SỐ KHÁC NHAU TRONG FILE
+
+using namespace std;
+
+int main()
+{
+  ifstream fin("DATA.in");
+  map<int, int> mp;
+  int x;
+  while (fin >> x)
+  {
+    mp[x]++;
+  }
+  for (const auto &p : mp)
+  {
+    cout << p.first << " " << p.second << endl;
+  }
+  fin.close();
+  return 0;
+}
+
+
+
+
+#include <iostream>
+#include <fstream>
+#include <set>
+#include <string>
+#include <algorithm>
+
+// LIỆT KÊ TỪ KHÁC NHAU
+
+using namespace std;
+
+string toLower(string s)
+{
+  transform(s.begin(), s.end(), s.begin(), ::tolower);
+  return s;
+}
+
+int main()
+{
+  ifstream fin("VANBAN.in");
+  set<string> se;
+  string s;
+  while (fin >> s)
+  {
+    se.insert(toLower(s));
+  }
+  for (const string &word : se)
+  {
+    cout << word << endl;
+  }
+  fin.close();
+  return 0;
+}
+
+
+
+#include <iostream>
+#include <fstream>
+#include <set>
+#include <string>
+#include <algorithm>
+
+// HỢP VÀ GIAO CỦA HAI FILE VĂN BẢN
+
+using namespace std;
+
+string toLower(string s)
+{
+  transform(s.begin(), s.end(), s.begin(), ::tolower);
+  return s;
+}
+
+int main()
+{
+  ifstream fin1("DATA1.in");
+  ifstream fin2("DATA2.in");
+  set<string> se1, se2;
+  string s;
+  while (fin1 >> s)
+  {
+    se1.insert(toLower(s));
+  }
+  while (fin2 >> s)
+  {
+    se2.insert(toLower(s));
+  }
+  fin1.close();
+  fin2.close();
+  set<string> hop, giao;
+  set_union(se1.begin(), se1.end(), se2.begin(), se2.end(), inserter(hop, hop.begin()));
+  set_intersection(se1.begin(), se1.end(), se2.begin(), se2.end(), inserter(giao, giao.begin()));
+  for (const string &word : hop)
+  {
+    cout << word << " ";
+  }
+  cout << endl;
+  for (const string &word : giao)
+  {
+    cout << word << " ";
+  }
+  cout << endl;
+  return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
